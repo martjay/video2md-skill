@@ -1,0 +1,77 @@
+{
+  "id": "BV1mubY6jE4u_p1",
+  "platform": "bilibili",
+  "title": "Matt Pocock 实战教程：5 条 Prompt 从零搭一个 MCP Server【中英字幕】 p01 【中英字幕】Matt Pocock 实战教程：5 条 Prompt 从零搭一个 MCP Server",
+  "upload_date": "20260817",
+  "timestamp": 1786943268,
+  "duration": 761.5,
+  "duration_string": "12:41",
+  "view_count": 2255,
+  "like_count": 50,
+  "comment_count": 7,
+  "channel": "ChHsich",
+  "channel_id": "588699709",
+  "channel_url": null,
+  "description": "Matt Pocock（Total TypeScript 作者）在 Cursor 里用 5 条结构化 prompt，从空目录搭出一个能查 GitHub PR 和 Actions 的 MCP server，全程演示 AI 辅助开发的 prompt 该怎么写。\n\n1. 每条 prompt 只干一件事：初始化项目、接入 GitHub、换 SSE 传输、拆分文件、加新功能——看着朴素，实际是一套能反复套用的迭代节奏\n2. 中途真实翻车：LLM 幻觉出一个不存在的 createTool.js，Matt 用一条显式指令把它救回来——这是全片最值钱的一分钟\n3. 三段式 prompt 模板（Problem / Supporting Information / Steps To Complete）现学现用，5 条 prompt 原文的 gist 链接见下方来源\n\n· Prompt 结构：Problem / Supporting Information / Steps To Complete 三段式写法\n· 初始化：Cursor + pnpm + tsconfig + important-files.mdc 规则文件一套配齐\n· 接 GitHub：Octokit 封装 issues / PR 操作，tool 描述一定要写全\n· 传输切换：stdio 换 SSE 用 Express 实现，附 WSL 踩坑（Hono 跑不通；app.use(express.json) 反而要删）\n· 重构：巨大的 main.ts 按领域拆成 tools 与 github-functions 两层\n· 翻车修复：幻觉出 createTool.js 后，在 Steps 里显式写&quot;先看现有实现、加载进上下文&quot;\n· 新功能：GitHub Actions 的 list / status / details / cancel / retry 五个工具\n\n来源：\n· 作者：Matt Pocock（Total TypeScript / AI Hero 作者）\n· 原视频：https://www.youtube.com/watch?v=FRogt98OF80\n· 5 条 Prompt 原文：https://gist.github.com/mattpocock/0aae0ed9b604750f07dee0ea75d8b03d\n\n字幕：AI 辅助转录 + 翻译并经人工校对。如有不准确之处，欢迎指出。",
+  "tags": [
+    "开发",
+    "电子中药",
+    "claude code",
+    "GLM5.3",
+    "命令行",
+    "CLI",
+    "实战教程",
+    "skills",
+    "Skills",
+    "mcp"
+  ],
+  "categories": [],
+  "chapters": [
+    {
+      "title": "开场：两条路线",
+      "start_time": 0,
+      "end_time": 28
+    },
+    {
+      "title": "初始化项目",
+      "start_time": 28,
+      "end_time": 136
+    },
+    {
+      "title": "接入 GitHub",
+      "start_time": 136,
+      "end_time": 262
+    },
+    {
+      "title": "改用 SSE 传输",
+      "start_time": 262,
+      "end_time": 407
+    },
+    {
+      "title": "为什么要重构",
+      "start_time": 407,
+      "end_time": 457
+    },
+    {
+      "title": "拆分大文件",
+      "start_time": 457,
+      "end_time": 548
+    },
+    {
+      "title": "加 Actions 工具",
+      "start_time": 548,
+      "end_time": 592
+    },
+    {
+      "title": "翻车与修复",
+      "start_time": 592,
+      "end_time": 728
+    },
+    {
+      "title": "三段式 Prompt 法",
+      "start_time": 728,
+      "end_time": 761
+    }
+  ],
+  "webpage_url": "https://www.bilibili.com/video/BV1mubY6jE4u?p=1"
+}

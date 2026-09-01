@@ -1,0 +1,1082 @@
+WEBVTT
+
+00:00:00.000 --> 00:00:01.960
+What's up folks, I'm gonna try something different today.
+
+00:00:01.960 --> 00:00:05.800
+I'm gonna build an MCP server in five prompts.
+
+00:00:05.800 --> 00:00:07.440
+I'm gonna make these prompts available to you
+
+00:00:07.440 --> 00:00:08.760
+so you can follow along.
+
+00:00:08.760 --> 00:00:10.080
+And we're hopefully gonna learn a little bit
+
+00:00:10.080 --> 00:00:12.120
+of something about MCP servers,
+
+00:00:12.120 --> 00:00:14.840
+but also how to do AI assisted development.
+
+00:00:14.840 --> 00:00:17.000
+Because yeah, you've got vibe coding on one side,
+
+00:00:17.000 --> 00:00:19.400
+and I like to think of there as AI assisted development
+
+00:00:19.400 --> 00:00:21.080
+on the other, the serious stuff.
+
+00:00:21.080 --> 00:00:23.320
+And it turns out that planning and documentation
+
+00:00:23.320 --> 00:00:26.000
+and doing the boring stuff is really, really important
+
+00:00:26.000 --> 00:00:28.240
+for this kind of sensible side of death.
+
+00:00:28.240 --> 00:00:31.480
+We're starting off with an empty directory in cursor here.
+
+00:00:31.480 --> 00:00:33.720
+And to start off, I'm just gonna paste in this prompt.
+
+00:00:33.720 --> 00:00:35.320
+And while that's running, I'm just gonna show you
+
+00:00:35.320 --> 00:00:37.280
+the structure of the prompt that we have here.
+
+00:00:37.280 --> 00:00:39.920
+There are three main sections, we have a problem,
+
+00:00:39.920 --> 00:00:42.400
+which is essentially a description of the problem
+
+00:00:42.400 --> 00:00:43.960
+that this prompt is designed to solve.
+
+00:00:43.960 --> 00:00:46.680
+We want to set up a new MCP server written in TypeScript,
+
+00:00:46.680 --> 00:00:48.240
+we're starting from an empty directory.
+
+00:00:48.240 --> 00:00:49.920
+We need to set up the basic file system,
+
+00:00:49.920 --> 00:00:52.040
+install the dependencies, set up the project structure.
+
+00:00:52.040 --> 00:00:54.360
+The supporting information is all the information
+
+00:00:54.360 --> 00:00:56.760
+that the LLM needs to carry out the task.
+
+00:00:56.760 --> 00:00:58.600
+In this case, I've added sections on the tools
+
+00:00:58.600 --> 00:01:01.040
+that we want to use, for instance, PNPM,
+
+00:01:01.040 --> 00:01:02.880
+and then also on the proposed file structure
+
+00:01:02.880 --> 00:01:04.400
+that I would like to use here.
+
+00:01:04.400 --> 00:01:07.600
+So it's stuff about the important files.mdc file,
+
+00:01:07.600 --> 00:01:10.880
+package.json.tsconfig, sourcemain.ts,
+
+00:01:10.880 --> 00:01:11.880
+Gitignore, et cetera.
+
+00:01:11.880 --> 00:01:13.840
+And finally, the steps to complete are literally
+
+00:01:13.840 --> 00:01:17.200
+the step-by-step things that the LLM should do
+
+00:01:17.200 --> 00:01:18.440
+in order to complete the task.
+
+00:01:18.440 --> 00:01:20.840
+You don't need to manually write this all out,
+
+00:01:20.840 --> 00:01:21.880
+you can use it all to complete,
+
+00:01:21.880 --> 00:01:24.800
+or you can prompt actually to get this structure out for you.
+
+00:01:24.800 --> 00:01:26.440
+But I've found these three top level headings
+
+00:01:26.440 --> 00:01:28.200
+to be really useful in just focusing
+
+00:01:28.200 --> 00:01:29.280
+my writing and my prompting.
+
+00:01:29.280 --> 00:01:30.520
+Okay, let's see what it put together.
+
+00:01:30.520 --> 00:01:31.920
+We've got a TSconfig file,
+
+00:01:31.920 --> 00:01:34.240
+which is basically ripped verbatim from the prompt.
+
+00:01:34.240 --> 00:01:36.440
+We've got a PNPM lock file, which is nice,
+
+00:01:36.440 --> 00:01:38.640
+so it knows that we're supposed to use PNPM.
+
+00:01:38.640 --> 00:01:41.680
+We've got a package.json file with a bunch of stuff
+
+00:01:41.680 --> 00:01:42.880
+that we're supposed to be in here.
+
+00:01:42.880 --> 00:01:45.000
+In the prompt, I specify type module,
+
+00:01:45.000 --> 00:01:48.240
+bin, I build and dev, and all the dependencies and stuff.
+
+00:01:48.240 --> 00:01:51.240
+We've got our Gitignore with disk and node modules, very nice.
+
+00:01:51.240 --> 00:01:54.000
+And we've got a source directory with a bunch of stuff
+
+00:01:54.000 --> 00:01:55.560
+that we specified in the prompt.
+
+00:01:55.560 --> 00:01:57.080
+This is ripped pretty much verbatim
+
+00:01:57.080 --> 00:01:59.560
+from model context protocols SDK, read me.
+
+00:01:59.560 --> 00:02:01.920
+And for now, it's using the standard IO server transport.
+
+00:02:01.920 --> 00:02:04.520
+We can see that the LLM got stuck in a couple of places.
+
+00:02:04.520 --> 00:02:06.800
+It can try to install the wrong version
+
+00:02:06.800 --> 00:02:08.520
+of model context protocol SDK,
+
+00:02:08.520 --> 00:02:12.400
+and then it was corrected by this big, beautiful error message,
+
+00:02:12.400 --> 00:02:13.320
+very, very nice.
+
+00:02:13.320 --> 00:02:14.600
+And actually that was the only place.
+
+00:02:14.600 --> 00:02:16.920
+So it followed the step-by-step instructions really nice.
+
+00:02:16.920 --> 00:02:18.280
+Let's head to prompt number two.
+
+00:02:18.280 --> 00:02:20.480
+Our MCP server currently doesn't do anything.
+
+00:02:20.480 --> 00:02:22.440
+Let's hook it up to GitHub so it can respond
+
+00:02:22.440 --> 00:02:23.680
+to issues and pull requests.
+
+00:02:23.680 --> 00:02:27.440
+We're going to use OctoKit for this, which is GitHub's SDK.
+
+00:02:27.440 --> 00:02:30.240
+It's going to need to know about TSX and .n.
+
+00:02:30.240 --> 00:02:32.040
+In the supporting information, I'm also telling it
+
+00:02:32.040 --> 00:02:34.440
+to always declare tool descriptions.
+
+00:02:34.440 --> 00:02:36.040
+Because when you call server.tool,
+
+00:02:36.040 --> 00:02:38.400
+you can either pass in a name or pass in a name
+
+00:02:38.400 --> 00:02:39.680
+and a description.
+
+00:02:39.680 --> 00:02:41.240
+And the description is always nicer
+
+00:02:41.240 --> 00:02:43.880
+because it means that the MCP client knows
+
+00:02:43.880 --> 00:02:45.720
+what this tool actually does.
+
+00:02:45.720 --> 00:02:46.960
+Then finally, in the steps to complete,
+
+00:02:46.960 --> 00:02:50.360
+I'm giving it loads of functions that I want it to write.
+
+00:02:50.360 --> 00:02:52.720
+Now in the app, let's open up a new chat
+
+00:02:52.760 --> 00:02:53.840
+and paste this in.
+
+00:02:53.840 --> 00:02:55.040
+So it's done a few things already.
+
+00:02:55.040 --> 00:02:56.760
+It's added.nv to gitignore.
+
+00:02:56.760 --> 00:03:00.080
+It's created a demo.n file for me, very nice.
+
+00:03:00.080 --> 00:03:01.680
+And it's also updated the dev script
+
+00:03:01.680 --> 00:03:05.640
+to use the .n file using n file from TSX.
+
+00:03:05.640 --> 00:03:07.200
+I'm pretty sure that in the pre-training data,
+
+00:03:07.200 --> 00:03:08.760
+it didn't know how to do this.
+
+00:03:08.760 --> 00:03:10.520
+It doesn't know TSX that well.
+
+00:03:10.520 --> 00:03:12.800
+And so I made sure I added that in the supporting information
+
+00:03:12.800 --> 00:03:13.800
+and now it does it.
+
+00:03:13.800 --> 00:03:16.200
+Now it's asking to install OctoKit, which is very nice.
+
+00:03:16.200 --> 00:03:19.320
+I really like it when it uses PNPM to install OctoKit.
+
+00:03:19.320 --> 00:03:21.880
+Because it means that it gets the latest version automatically
+
+00:03:21.880 --> 00:03:23.400
+instead of just guessing the version
+
+00:03:23.400 --> 00:03:24.600
+that was in its pre-training data.
+
+00:03:24.600 --> 00:03:27.560
+Now it's creating this massive GitHub functions file.
+
+00:03:27.560 --> 00:03:29.040
+It's done a really good job here.
+
+00:03:29.040 --> 00:03:32.160
+I have barely included any information about OctoKit
+
+00:03:32.160 --> 00:03:34.560
+in the supporting information or anything.
+
+00:03:34.560 --> 00:03:38.560
+And it's just managing to cleanly, boop, boop, boop, slam out.
+
+00:03:38.560 --> 00:03:40.920
+I assume this is because the GitHub REST API
+
+00:03:40.920 --> 00:03:42.280
+has been around for a long time,
+
+00:03:42.280 --> 00:03:43.880
+so it's probably in the training data somewhere.
+
+00:03:43.880 --> 00:03:46.000
+It's also updated the important files.mdc
+
+00:03:46.000 --> 00:03:50.360
+to add this GitHub file to it and getignore.n, very nice.
+
+00:03:50.360 --> 00:03:53.120
+And finally, it's now added all of these different tools.
+
+00:03:53.120 --> 00:03:55.320
+Here, get pull requests, create issue comments.
+
+00:03:55.320 --> 00:03:57.760
+If I scan through these, we can see all of them,
+
+00:03:57.760 --> 00:03:59.440
+create pull request comment.
+
+00:03:59.440 --> 00:04:02.440
+And all of these like extra ZOD parameters
+
+00:04:02.440 --> 00:04:05.600
+to make sure that the MCP client can call it correctly.
+
+00:04:05.600 --> 00:04:07.240
+Again, we're really leaning on the model's
+
+00:04:07.240 --> 00:04:09.080
+inbuilt knowledge of the GitHub API here.
+
+00:04:09.080 --> 00:04:11.920
+We can see that these very simple descriptions here
+
+00:04:11.920 --> 00:04:15.080
+led to an extremely complex, well actually,
+
+00:04:15.080 --> 00:04:16.680
+not that complex implementation,
+
+00:04:16.680 --> 00:04:19.560
+but like this small amount of words
+
+00:04:19.560 --> 00:04:22.040
+led to a lot of code, very cool.
+
+00:04:22.040 --> 00:04:23.040
+Now, before we get this running,
+
+00:04:23.040 --> 00:04:25.560
+I actually want to, instead of using standard IO,
+
+00:04:25.560 --> 00:04:29.560
+I want to use prompt three to convert it to SSE instead.
+
+00:04:29.560 --> 00:04:32.960
+I'm on WSL and I've not been able to get cursor working
+
+00:04:32.960 --> 00:04:37.440
+with MCP servers using standard IO on WSL.
+
+00:04:37.440 --> 00:04:38.280
+It's quite complicated.
+
+00:04:38.280 --> 00:04:39.280
+In the supporting information,
+
+00:04:39.280 --> 00:04:41.880
+I've got a few battle scars kind of recorded here.
+
+00:04:41.880 --> 00:04:43.840
+I've only been able to get this to work using
+
+00:04:43.840 --> 00:04:44.960
+the express framework.
+
+00:04:44.960 --> 00:04:46.480
+I tried getting it to work with Hono,
+
+00:04:46.480 --> 00:04:47.680
+but wasn't able to.
+
+00:04:47.680 --> 00:04:49.400
+And I've added here the example implementation
+
+00:04:49.400 --> 00:04:51.840
+that I've got in an article on AI here.
+
+00:04:51.840 --> 00:04:53.680
+The steps to complete are pretty simple here.
+
+00:04:53.680 --> 00:04:55.440
+So let's open up a new chat with nothing
+
+00:04:55.440 --> 00:04:57.640
+in the context, bugging in and get it going.
+
+00:04:57.640 --> 00:05:00.520
+So it knows to install Express very nice
+
+00:05:00.520 --> 00:05:02.160
+and by doing it by PNPM,
+
+00:05:02.160 --> 00:05:03.600
+it's installing the latest versions.
+
+00:05:03.600 --> 00:05:05.320
+So as expected, it's done a really good job,
+
+00:05:05.320 --> 00:05:07.000
+basically copy and pasting the code
+
+00:05:07.000 --> 00:05:08.560
+that was in the supporting information
+
+00:05:08.560 --> 00:05:10.800
+down into this express area here.
+
+00:05:10.800 --> 00:05:13.320
+It's done something slightly odd in the package.json,
+
+00:05:13.320 --> 00:05:16.760
+which has added this actual start script here.
+
+00:05:16.760 --> 00:05:18.160
+Not sure why it's done that.
+
+00:05:18.160 --> 00:05:19.360
+I didn't tell it to do that.
+
+00:05:19.400 --> 00:05:20.840
+I suppose it's useful in some sense,
+
+00:05:20.840 --> 00:05:23.240
+but we're going to be using the dev script here
+
+00:05:23.240 --> 00:05:24.920
+so we don't really need this start one.
+
+00:05:24.920 --> 00:05:26.280
+In fact, I'm just going to delete it.
+
+00:05:26.280 --> 00:05:27.840
+Off screen, I've just gone away,
+
+00:05:27.840 --> 00:05:30.040
+grabbed a GitHub personal access token
+
+00:05:30.040 --> 00:05:31.440
+with the right scopes,
+
+00:05:31.440 --> 00:05:33.680
+and I've added it to my.m file.
+
+00:05:33.680 --> 00:05:36.360
+So I should now be able to run PNPM run dev
+
+00:05:36.360 --> 00:05:39.360
+and the server is running on port 8080.
+
+00:05:39.360 --> 00:05:41.480
+In my cursor setup, I have it pointed to
+
+00:05:41.480 --> 00:05:43.680
+localhost 8080, SSE.
+
+00:05:43.680 --> 00:05:47.200
+I was getting an error here saying client closed, okay?
+
+00:05:47.200 --> 00:05:49.000
+It turns out that deleting this line,
+
+00:05:49.000 --> 00:05:50.760
+app.usexpress.json,
+
+00:05:50.760 --> 00:05:53.320
+going back to cursor settings, refreshing,
+
+00:05:53.320 --> 00:05:54.560
+and now everything is working.
+
+00:05:54.560 --> 00:05:57.840
+So now that cursor is hooked up to my MCP server,
+
+00:05:57.840 --> 00:05:59.600
+we can say, tell me about the open PRs
+
+00:05:59.600 --> 00:06:02.320
+on MacBook everlights, which is one of the reposite.
+
+00:06:02.320 --> 00:06:04.000
+It's telling me to call an MCP tool,
+
+00:06:04.000 --> 00:06:05.480
+list pull requests, okay?
+
+00:06:05.480 --> 00:06:06.320
+Sounds great.
+
+00:06:06.320 --> 00:06:07.800
+We can go into here and actually see
+
+00:06:07.800 --> 00:06:09.480
+what was returned from this.
+
+00:06:09.480 --> 00:06:11.280
+So we've got the result inside here.
+
+00:06:11.280 --> 00:06:13.400
+Big loaded data from the GitHub API.
+
+00:06:13.400 --> 00:06:15.760
+There is probably too much data here.
+
+00:06:15.760 --> 00:06:18.600
+I would probably go in and kill some of this
+
+00:06:18.600 --> 00:06:23.040
+because if we plow all of this data into our LM,
+
+00:06:23.040 --> 00:06:25.520
+we're gonna run out of context window pretty quickly.
+
+00:06:25.520 --> 00:06:27.480
+But in this case, it was able to summarize it for us.
+
+00:06:27.480 --> 00:06:31.480
+So we've got PR 114, fixed chart colors by dog poor hat.
+
+00:06:31.480 --> 00:06:33.800
+I will get to this PR, I promise.
+
+00:06:33.800 --> 00:06:36.000
+I've just got a lot on an added failing test
+
+00:06:36.000 --> 00:06:39.400
+for the AI SDK image traces by, oh, that's me, okay?
+
+00:06:39.400 --> 00:06:42.240
+Created by the repository owner, 31st, 2024.
+
+00:06:42.240 --> 00:06:43.080
+Cool.
+
+00:06:43.080 --> 00:06:44.680
+All this to say, we've hooked up our MCP server
+
+00:06:44.680 --> 00:06:47.240
+to our MCP client and can now start doing stuff with it.
+
+00:06:47.240 --> 00:06:48.560
+Let's dive back into our code base
+
+00:06:48.600 --> 00:06:51.320
+and start looking at a couple of refactors
+
+00:06:51.320 --> 00:06:52.200
+that I think I want to make.
+
+00:06:52.200 --> 00:06:54.480
+Yeah, this is invite coding where we don't care at all
+
+00:06:54.480 --> 00:06:55.320
+about the code.
+
+00:06:55.320 --> 00:06:56.560
+We actually do care about the code
+
+00:06:56.560 --> 00:06:59.120
+because the code is the input to our LLM.
+
+00:06:59.120 --> 00:07:02.400
+And funnily enough, things like file structures and things,
+
+00:07:02.400 --> 00:07:05.440
+things I've never actually really cared about as a proper dev.
+
+00:07:05.440 --> 00:07:07.920
+They're kind of useful tools to be able to communicate
+
+00:07:07.920 --> 00:07:10.240
+the LLM quickly, what a file is for.
+
+00:07:10.240 --> 00:07:14.000
+If our file structure is confusing or too diffuse or strange,
+
+00:07:14.000 --> 00:07:16.320
+then it's going to kind of trick the LLM into doing
+
+00:07:16.320 --> 00:07:17.480
+weird, weird things.
+
+00:07:17.480 --> 00:07:21.280
+And currently we have one enormous like main.ts file,
+
+00:07:21.280 --> 00:07:23.760
+which is I think doing a bit too much.
+
+00:07:23.760 --> 00:07:26.320
+We kind of, it's declaring the server transport.
+
+00:07:26.320 --> 00:07:27.920
+It's declaring the server initially.
+
+00:07:27.920 --> 00:07:30.360
+It's adding all of these tools onto here.
+
+00:07:30.360 --> 00:07:32.000
+It's just doing too much and it means
+
+00:07:32.000 --> 00:07:34.000
+that the LLM might end up doing things
+
+00:07:34.000 --> 00:07:35.880
+like adding a random tools file
+
+00:07:35.880 --> 00:07:37.280
+and then not bringing it back to this.
+
+00:07:37.280 --> 00:07:39.120
+So in this prompt, we are breaking up the large files
+
+00:07:39.120 --> 00:07:40.520
+into smaller chunks.
+
+00:07:40.520 --> 00:07:43.120
+Each file may contain multiple GitHub actions or tools,
+
+00:07:43.120 --> 00:07:45.120
+but they should be split by domain
+
+00:07:45.120 --> 00:07:46.520
+and ensure that all major files are added
+
+00:07:46.560 --> 00:07:48.960
+to the important files.mdc file.
+
+00:07:48.960 --> 00:07:50.440
+Again, just keeping that up to date.
+
+00:07:50.440 --> 00:07:53.480
+Let's start a new chat, paste this in, and off we go.
+
+00:07:53.480 --> 00:07:54.800
+Okay, our refactor is complete
+
+00:07:54.800 --> 00:07:57.400
+and we now have a new file structure.
+
+00:07:57.400 --> 00:07:59.320
+We now have source, GitHub,
+
+00:07:59.320 --> 00:08:02.080
+with a bunch of functions and tools underneath it.
+
+00:08:02.080 --> 00:08:04.000
+We also have a server, I suppose,
+
+00:08:04.000 --> 00:08:06.040
+with the app and the transport.
+
+00:08:06.040 --> 00:08:07.600
+And finally, we have main.ts,
+
+00:08:07.600 --> 00:08:09.800
+which basically just has an MCP server,
+
+00:08:09.800 --> 00:08:12.040
+then says register GitHub tools,
+
+00:08:12.040 --> 00:08:14.640
+create the express app and tell it to listen.
+
+00:08:14.640 --> 00:08:16.400
+The GitHub functions look pretty similar
+
+00:08:16.680 --> 00:08:17.840
+to what they had before.
+
+00:08:17.840 --> 00:08:19.320
+It's just split up into different files.
+
+00:08:19.320 --> 00:08:21.800
+So we've got issues and poor requests currently.
+
+00:08:21.800 --> 00:08:23.160
+We do have a barrel file here,
+
+00:08:23.160 --> 00:08:24.800
+which show in libraries I don't love,
+
+00:08:24.800 --> 00:08:26.160
+but is fine for this, I suppose.
+
+00:08:26.160 --> 00:08:28.480
+But crucially, our important file stuff here
+
+00:08:28.480 --> 00:08:30.080
+has all been added.
+
+00:08:30.080 --> 00:08:32.400
+You can see how the file structure has an impact
+
+00:08:32.400 --> 00:08:35.000
+on the way that the LLM understands your code base.
+
+00:08:35.000 --> 00:08:37.480
+If I was extending this out to a massive, massive code base,
+
+00:08:37.480 --> 00:08:40.720
+I would probably not have all of the individual issues
+
+00:08:40.720 --> 00:08:42.120
+and pull stuff here,
+
+00:08:42.120 --> 00:08:45.200
+because GitHub would know the function of the folder.
+
+00:08:45.200 --> 00:08:46.840
+And the folder would essentially be the way
+
+00:08:46.840 --> 00:08:49.480
+that it could then discover all of the information
+
+00:08:49.480 --> 00:08:50.480
+within that feature.
+
+00:08:50.480 --> 00:08:52.080
+This also means you can have cursor rules
+
+00:08:52.080 --> 00:08:53.920
+attached to different folders as well.
+
+00:08:53.920 --> 00:08:56.000
+For instance, this one is auto-attached
+
+00:08:56.000 --> 00:08:57.200
+where we could say,
+
+00:08:57.200 --> 00:09:01.280
+oh, let's say it only matters on source, GitHub, for instance,
+
+00:09:01.280 --> 00:09:02.720
+and on all files in there.
+
+00:09:02.720 --> 00:09:04.280
+But since this one is properly global,
+
+00:09:04.280 --> 00:09:06.760
+let's just have it always attached to every conversation.
+
+00:09:06.760 --> 00:09:08.400
+So now our refactor step is complete.
+
+00:09:08.400 --> 00:09:10.400
+Let's actually add a new feature here
+
+00:09:10.400 --> 00:09:12.760
+to test out all the infrastructure that we've now built.
+
+00:09:12.760 --> 00:09:15.400
+I want to be able to check the status of actions
+
+00:09:15.400 --> 00:09:16.560
+on the MCP server.
+
+00:09:16.560 --> 00:09:18.280
+In other words, check out workflows
+
+00:09:18.280 --> 00:09:20.240
+in GitHub using my cool thing.
+
+00:09:20.240 --> 00:09:22.800
+Let's bung this in again with no context needed
+
+00:09:22.800 --> 00:09:23.800
+and just let it work.
+
+00:09:23.800 --> 00:09:26.520
+We can see by the way that the way cursor index is stuff here,
+
+00:09:26.520 --> 00:09:29.920
+we have listed items in GitHub source functions.
+
+00:09:29.920 --> 00:09:33.240
+So it's actually looking in the folder for the files.
+
+00:09:33.240 --> 00:09:35.040
+And it can see pretty clearly that it just needs
+
+00:09:35.040 --> 00:09:36.800
+to add a new domain into here
+
+00:09:36.800 --> 00:09:39.920
+and add actions.ts into GitHub functions.
+
+00:09:39.920 --> 00:09:41.520
+Okay, it's now finished and we can see
+
+00:09:41.560 --> 00:09:43.200
+that we've actually become the victim
+
+00:09:43.200 --> 00:09:45.720
+of our very first weird, weird screw up.
+
+00:09:45.720 --> 00:09:48.000
+First of all, the LLM appears to have hallucinated
+
+00:09:48.000 --> 00:09:50.560
+the idea that there is a create tool function
+
+00:09:50.560 --> 00:09:51.840
+somewhere in the repo.
+
+00:09:51.840 --> 00:09:54.200
+So it's completely just lost the plot
+
+00:09:54.200 --> 00:09:56.320
+and imagined this create tool.js file.
+
+00:09:56.320 --> 00:09:59.480
+It's then used that invented its own API here
+
+00:09:59.480 --> 00:10:02.600
+in order to create these list workflow runs tool.
+
+00:10:02.600 --> 00:10:04.400
+So I'm actually going to rerun this
+
+00:10:04.400 --> 00:10:06.280
+and edit the steps to complete.
+
+00:10:06.280 --> 00:10:09.800
+The issue here is that the LLM didn't go and look for
+
+00:10:09.800 --> 00:10:11.960
+the existing implementations to copy them.
+
+00:10:11.960 --> 00:10:13.760
+This is a context window problem.
+
+00:10:13.760 --> 00:10:16.840
+It didn't have the right stuff in the context window
+
+00:10:16.840 --> 00:10:20.560
+in order to be able to go and find the right solution.
+
+00:10:20.560 --> 00:10:22.880
+I could take the existing implementation
+
+00:10:22.880 --> 00:10:24.760
+and put it in the supporting information
+
+00:10:24.760 --> 00:10:26.840
+but I think it's just cleaner to tell it to go
+
+00:10:26.840 --> 00:10:29.160
+and look at the existing implementation first.
+
+00:10:29.160 --> 00:10:31.400
+So I've now told it in the start of the steps to complete,
+
+00:10:31.400 --> 00:10:33.880
+look at the existing implementations of functions
+
+00:10:33.880 --> 00:10:35.640
+and tools in the correct directory,
+
+00:10:35.640 --> 00:10:38.160
+load them into your context window, be very specific.
+
+00:10:38.160 --> 00:10:40.080
+So let's take this entire prompt
+
+00:10:40.080 --> 00:10:42.000
+and stick it in the chat window.
+
+00:10:42.000 --> 00:10:43.640
+We're actually going to use this chat here.
+
+00:10:43.640 --> 00:10:45.520
+We're going to go all the way up to the top
+
+00:10:45.520 --> 00:10:48.400
+and we're essentially just going to paste it in here instead.
+
+00:10:48.400 --> 00:10:51.120
+So we're going to override the previous chat message
+
+00:10:51.120 --> 00:10:52.720
+and then just go back.
+
+00:10:52.720 --> 00:10:56.200
+This means that all of the code that we had before
+
+00:10:56.200 --> 00:10:57.600
+essentially gets removed.
+
+00:10:57.600 --> 00:11:00.160
+So we don't no longer have that dodgy action stuff.
+
+00:11:00.160 --> 00:11:01.880
+You can see it's all been removed
+
+00:11:01.880 --> 00:11:03.520
+if I move my face.
+
+00:11:03.520 --> 00:11:05.720
+Ooh, I just go over here for a sec.
+
+00:11:05.720 --> 00:11:07.320
+All the action stuff has been removed
+
+00:11:07.320 --> 00:11:08.800
+from functions and tools.
+
+00:11:08.800 --> 00:11:11.520
+We can see now that thanks to our explicit instruction,
+
+00:11:11.520 --> 00:11:13.680
+it's going first, let's look at the existing
+
+00:11:13.680 --> 00:11:15.360
+GitHub functions and tools.
+
+00:11:15.360 --> 00:11:16.560
+Let me check the implementation
+
+00:11:16.560 --> 00:11:18.480
+of one of the existing function files.
+
+00:11:18.480 --> 00:11:20.480
+Let me check how these things are exposed to tools.
+
+00:11:20.480 --> 00:11:22.080
+It's reading the correct files,
+
+00:11:22.080 --> 00:11:23.560
+loading them into its context window.
+
+00:11:23.560 --> 00:11:25.000
+Okay, we now have an actions file
+
+00:11:25.000 --> 00:11:28.880
+that looks very much like the other actions that we had here.
+
+00:11:28.880 --> 00:11:30.760
+Again, it's relying on its training data,
+
+00:11:30.760 --> 00:11:32.800
+really spitting out these OctoKit functions.
+
+00:11:32.800 --> 00:11:36.440
+And here we can see the actions are much more like it.
+
+00:11:36.440 --> 00:11:38.040
+Just like this issues file here
+
+00:11:38.040 --> 00:11:39.760
+where we have registered issues tools,
+
+00:11:39.760 --> 00:11:41.320
+we have an actions thing here
+
+00:11:41.320 --> 00:11:42.960
+that says register action tools.
+
+00:11:42.960 --> 00:11:44.440
+And so the previous hallucination,
+
+00:11:44.440 --> 00:11:46.360
+I mean, was that our fault?
+
+00:11:46.360 --> 00:11:47.520
+Was it the LLM's fault?
+
+00:11:47.520 --> 00:11:49.400
+Maybe the LLM should have been smart enough
+
+00:11:49.400 --> 00:11:50.680
+to understand that it should have looked
+
+00:11:50.680 --> 00:11:51.920
+in those files first.
+
+00:11:51.920 --> 00:11:53.480
+But honestly, I put this down to me
+
+00:11:53.480 --> 00:11:55.680
+not thinking ahead, not understanding
+
+00:11:55.680 --> 00:11:57.960
+what the LLM's context was supposed to be.
+
+00:11:57.960 --> 00:12:00.120
+It had to have those files in context.
+
+00:12:00.120 --> 00:12:01.560
+If it didn't have the files in context,
+
+00:12:01.560 --> 00:12:03.000
+it had no idea what it was going to do.
+
+00:12:03.000 --> 00:12:04.160
+So explicitly telling it,
+
+00:12:04.160 --> 00:12:05.640
+load those files into context
+
+00:12:05.640 --> 00:12:07.840
+and essentially copy them is the way to go.
+
+00:12:07.840 --> 00:12:09.600
+So there we go, in a series of five prompts,
+
+00:12:09.600 --> 00:12:14.000
+we have a bunch of stuff that can look like an MCP server.
+
+00:12:14.000 --> 00:12:15.240
+We have a bunch of folders
+
+00:12:15.240 --> 00:12:17.200
+that will allow us to add features here
+
+00:12:17.200 --> 00:12:19.760
+where the LLM understands what it's supposed to do.
+
+00:12:19.760 --> 00:12:21.040
+We have all the infrastructure needed
+
+00:12:21.040 --> 00:12:23.160
+to run this as an MCP server locally.
+
+00:12:23.160 --> 00:12:24.360
+And we've done this with prompts
+
+00:12:24.360 --> 00:12:27.800
+that use a three section heading kind of thing.
+
+00:12:27.800 --> 00:12:30.240
+They explain the problem that we're supposed to be solving.
+
+00:12:30.240 --> 00:12:32.720
+They give the LLM any supporting information it needs,
+
+00:12:32.720 --> 00:12:34.040
+like external resources.
+
+00:12:34.040 --> 00:12:36.600
+And then you have the explicit steps to complete,
+
+00:12:36.600 --> 00:12:37.760
+which is really important.
+
+00:12:37.760 --> 00:12:38.520
+I hope you enjoyed this.
+
+00:12:38.520 --> 00:12:39.600
+I definitely enjoyed making this
+
+00:12:39.600 --> 00:12:40.640
+and I'll be back with more.
+
+00:12:40.640 --> 00:12:41.640
+See you very soon.
+

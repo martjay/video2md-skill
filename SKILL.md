@@ -1,0 +1,147 @@
+---
+name: video2md-skill
+description: >-
+  把任意视频（YouTube、Bilibili、TikTok、播客等）转化为高认知密度、干货满满且可直接执行的结构化 Markdown 知识库。
+  开局使用通俗易懂的自然语言向用户确认选项（总结模式、事实核验、范围、正文语言）。
+  AI 全程代劳执行所有后台命令，普通用户无需碰终端。
+  全面兼容 macOS、Windows、Linux 系统。
+  支持 B 站抓取时自动拉起扫码弹窗（一键保存 Cookie 直取官方 AI 字幕）、中日韩多语言无缝去重、智能时间分块、ASR 语音转写降级与弹幕高能要点提炼。
+  触发词：总结视频、video2md、YouTube 拆解、B站、bilibili、字幕总结、视频转笔记、知识提取。
+---
+
+# video2md-skill
+
+把任意视频变成结构化、富含实战细节、可落地执行并能赋能 AI Agent 自学习进化的 Markdown 知识库资产。
+
+- **零门槛全自动**：**AI 全程代劳执行所有后台命令，严禁要求普通用户手动敲命令或打开终端**。
+- **跨平台支持**：全面原生兼容 **macOS**、**Windows**、**Linux**。
+- **B 站自动弹窗扫码与免 ASR 直取**：抓取未登录视频时，系统会自动在用户屏幕上拉起二维码，手机扫码后自动持久化 Cookie，秒级直取官方「中文 (AI)」与 CC 字幕。
+- **主键体系**：该站视频唯一 ID（YouTube 11 位 / B 站 BV 号 / 其它站 yt-dlp `id`）。
+- **支持范围**：yt-dlp 支持的所有站点及播客音视频。详见 [platforms.md](platforms.md)。
+- **核心模板**：[templates.md](templates.md)（拒绝泛泛而谈，必须提供具体代码、数据与实操步骤）。
+- **核验规范**：[verification.md](verification.md)（十节深度验证报告）。
+
+---
+
+## 0. 开局（必须先确认配置选项，语言必须通俗易懂）
+
+用户说 **「总结视频」** 或给出视频/频道链接时，**先停下来向用户确认选项**。
+
+若有 `AskQuestion` 工具，**必须使用通俗易懂的日常自然语言（禁止堆砌令普通用户困惑的生涩术语）**：
+
+| id | 选项展示文案 | 说明/底层行为 |
+|:---|:---|:---|
+| **选项 1 (推荐)** | `💡 极客深度总结（干货拉满 · 包含完整代码/实操步骤/底层逻辑/避坑指南）` | 标准 A 级深度拆解，包含 YAML 元数据、IF-THEN 规则与实战案例 |
+| **选项 2** | `🔍 深度事实打假与核验（额外生成一份独立报告，对比竞品并核验商业/技术真实性）` | 生成独立的十节可行性与事实核验长报告 |
+| **选项 3** | `⚡ 批量加速处理（适合总结整个频道或多个视频时开启并行）` | 开启多任务并行 |
+| **选项 4** | `🎙️ 自动语音识别（若视频没有官方字幕，自动把视频声音转写成文字）` | 自动调用 Whisper ASR 转录 |
+
+正文语言选项：
+- `🇨🇳 简体中文（默认）`
+- `🇺🇸 英文 (English)`
+- `🌐 中英双语对照`
+
+无 `AskQuestion` 时贴出配置卡片：
+
+```
+【video2md 选项】请确认本次总结偏好：
+[x] 💡 极客深度总结（干货拉满 · 包含完整代码/实操步骤/底层逻辑/避坑指南）
+[ ] 🔍 深度事实打假与核验（额外产出商业/技术真实性独立报告）
+[ ] ⚡ 批量加速处理（多任务并行）
+[ ] 🎙️ 自动语音识别（无字幕时自动识别音频）
+范围：[ 单个视频 / 全频道增量 ]
+语言：[ 简体中文 (默认) / English / 双语 ]
+链接（YouTube / B站 / 播客等均可）：
+输出知识库目录（默认 ./video2md）：
+```
+
+### 执行硬性约束：
+- **AI 代劳原则**：用户给出 URL 后，AI 自主执行所有后台抓取、环境检测与解析指令，用户仅需在屏幕弹出扫码窗口时用手机扫一下码即可。
+- **未勾选并行** → **严禁**擅自开启后台子 agent 刷屏。
+- **未勾选核验** → **禁止**生成独立的十节核验长报告，保持拆解文档聚焦精炼。
+- **勾选了核验** → 拆解全部入库后，按 [verification.md](verification.md) 编写独立报告存入 `可行性验证/` 目录。
+- **内容质量红线**：严禁只写抽象原则与空话，**必须包含具体代码重构对比、详细配置参数、前后对比图表与可照着操作的 Checklist**。
+
+---
+
+## 1. 依赖与跨平台环境初始化
+
+每次执行 `fetch` 前运行：
+
+```bash
+python scripts/video2md.py setup
+```
+
+- 脚本跨平台适配：
+  - **macOS**：优先使用 `brew install yt-dlp ffmpeg` 或调用 Python 自动处理 PEP 668 环境；失败可运行 `bash scripts/install_ytdlp.sh`。
+  - **Windows**：自动通过 pip 安装；失败可双击 `scripts/安装或更新yt-dlp.bat`。
+  - **Linux**：通过 pip 或 apt 安装 `yt-dlp` 与 `ffmpeg`。
+
+### B 站全自动扫码弹窗机制
+在调用 `python scripts/video2md.py fetch --url ...` 时：
+- 若本地尚未保存 `cookies.txt`，脚本会**全自动在用户桌面上拉起二维码图片弹窗**；
+- 用户用哔哩哔哩手机 App 扫码并确认后，Cookie 自动持久化保存至 `video2md/cookies.txt`，脚本继续无缝秒级下载官方 AI 字幕；
+- 若用户未扫码，25 秒后自动平滑切换至本地语音识别（ASR）流水线，不中断任务。
+
+---
+
+## 2. 抓取元数据、字幕与音频
+
+```bash
+# 单条或全频道抓取（自动优先拉取官方/AI字幕，自动加载已保存的 cookies.txt，未登录自动弹窗）
+python scripts/video2md.py fetch --url "https://www.bilibili.com/video/BV..." --library ./video2md
+
+# B 站空间/频道增量抓取（跳过已下载视频）
+python scripts/video2md.py fetch --url "https://space.bilibili.com/UID" --library ./video2md --new-only
+
+# 解析并结构化输出字幕（含 CJK 智能去重与自动时间分块）
+python scripts/video2md.py captions --video-id VIDEO_ID --library ./video2md --write
+```
+
+---
+
+## 3. 频道知识库与目录结构
+
+所有频道/UP主按照 **持久化稳定 ID** 组织，改名或更换昵称自动记录到 `aliases`，永远不丢失历史文件：
+
+```
+video2md/
+  _registry.json               # 全局频道稳定映射注册表
+  cookies.txt                  # 保存的 B 站登录态 Cookie（扫码后自动生成）
+  {channel-slug}/
+    channel.json               # 频道持久元数据
+    meta/                      # 原始视频 JSON 元数据
+    subtitles/                 # VTT/SRT 字幕与弹幕 XML
+    audio/                     # 可选的 ASR 音频片段
+    逐视频拆解/                 # A 级 Markdown 深度拆解文档
+      00-总索引.md
+      001-{videoId}-{title}.md
+    可行性验证/                 # 独立核验报告（仅勾选后生成）
+      001-{videoId}-verify.md
+```
+
+文件名规范：`{NNN}-{videoId}-{title-slug}.md`（NNN 为发布日期正序三位编号）。
+
+---
+
+## 4. 深度拆解与 Agent 知识提取规范
+
+严禁生成空洞、泛泛而谈的流水账，必须严格对齐 [templates.md](templates.md) 的 A 级标准：
+
+1. **机器可读 Frontmatter**：完整填写 `category`, `topics`, `entities`, `mental_models`, `extracted_heuristics`, `target_agent_skills`。
+2. **忠实原意，干货与实操细节拉满**：给出真实工程代码（如 TypeScript / Python / SQL）、目录结构对比、架构图、测试用例。
+3. **领域自适应模块**：根据视频领域（技术架构、商业增长、科研理论、实操教程、访谈纪实、硬件选型）展开特化分析与 Mermaid 图表。
+4. **AI Agent 自演化专区**：必须提炼出可执行的 **IF-THEN 启发式规则**、**SOP 操作清单** 以及 **3~5 组合成自省评测 Q&A 对**。
+
+---
+
+## 5. 完成检查清单（Checklist）
+
+在向用户提交成果前，必须确认：
+- [ ] 开局选项已向用户确认（使用通俗易懂的日常用语）；
+- [ ] AI 自主完成所有后台命令执行，未要求用户手动敲代码；
+- [ ] 频道目录以稳定 ID 建立，未覆盖其他频道；
+- [ ] 正文包含足量可直接执行的代码、操作步骤与实战细节，拒绝空洞概念；
+- [ ] 中文滚动字幕经去重算法处理，无明显机械复读；
+- [ ] 未勾选核验则未创建多余的长篇报告；
+- [ ] 更新 `00-总索引.md`。

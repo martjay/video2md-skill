@@ -1,0 +1,776 @@
+WEBVTT
+
+00:00:00.000 --> 00:00:07.040
+Hello pals, it occurs to me that I've never really made a super quick introduction to my skill set.
+
+00:00:07.040 --> 00:00:12.400
+You know, just a fast video that respect my time and yours walking your way through my skills.
+
+00:00:12.400 --> 00:00:15.840
+We're going to walk through this documentation site, which is the docs for my skills.
+
+00:00:15.840 --> 00:00:18.160
+You can see they're nearly up to 220k stars.
+
+00:00:18.160 --> 00:00:20.240
+You can install them in two separate ways currently.
+
+00:00:20.240 --> 00:00:26.480
+You can either just get the Claude plugin just here or you can install the skills locally via NPX skills.
+
+00:00:26.480 --> 00:00:29.360
+If you want a really smooth managed install, then you use Claude code.
+
+00:00:29.360 --> 00:00:32.640
+If you want to tinker with the skills, then you'll install the skills via NPX.
+
+00:00:32.640 --> 00:00:37.200
+I've got about 20 minutes before I pick up my son and let's see if we can make that video now.
+
+00:00:37.200 --> 00:00:42.160
+And by the way, if you're interested in this stuff, then I'm releasing an AI coding crash course next week.
+
+00:00:42.160 --> 00:00:45.680
+The final pricing, the final release, will open on Monday.
+
+00:00:45.680 --> 00:00:48.480
+And so if you want to be first in line, then whoopoo if I just get out the way,
+
+00:00:48.480 --> 00:00:50.320
+then you can join the wait list.
+
+00:00:50.320 --> 00:00:52.720
+This skill set is for engineering.
+
+00:00:52.720 --> 00:00:55.360
+So we are really focusing on engineering at the start.
+
+00:00:55.440 --> 00:01:00.800
+The main way you do engineering with this skill set is you first use the grill with docs skill.
+
+00:01:00.800 --> 00:01:05.280
+This is kind of a modification of the grill me skill, which is much more popular,
+
+00:01:05.280 --> 00:01:06.960
+well, very popular down there.
+
+00:01:06.960 --> 00:01:10.880
+And the idea of the grill me skill is you align on an idea before committing to it.
+
+00:01:10.880 --> 00:01:12.720
+So this is really kind of like plan mode.
+
+00:01:12.720 --> 00:01:15.840
+And grill with docs adds just a little layer on top of that,
+
+00:01:15.840 --> 00:01:20.480
+forcing you to talk about domain terminology and also add a little bit of documentation
+
+00:01:20.480 --> 00:01:22.080
+on the decisions that you've been making.
+
+00:01:22.080 --> 00:01:23.760
+So architectural decision records.
+
+00:01:23.760 --> 00:01:28.480
+It interviews you pretty aggressively until you've sort of figured out what you're building.
+
+00:01:28.480 --> 00:01:32.480
+And then once you figure that out, you can then dive into implementing it straight away,
+
+00:01:32.480 --> 00:01:34.240
+if you like via the implement skill.
+
+00:01:34.240 --> 00:01:37.520
+The implement skill, like most of my skills, is extremely small.
+
+00:01:37.520 --> 00:01:39.600
+Just implement the work described by the user.
+
+00:01:39.600 --> 00:01:43.200
+It uses a TDD skill, which is just really a reference skill.
+
+00:01:43.200 --> 00:01:44.880
+I'm getting it to do red green refactor.
+
+00:01:44.880 --> 00:01:48.320
+And then it calls code review to review the work at the end.
+
+00:01:48.320 --> 00:01:49.920
+The code review skill is really great.
+
+00:01:49.920 --> 00:01:52.800
+It does a dual access check.
+
+00:01:52.800 --> 00:01:55.120
+It first checks on the standards.
+
+00:01:55.120 --> 00:01:58.240
+So any documented coding standards in your repo will be picked up.
+
+00:01:58.240 --> 00:02:00.800
+And it checks against the original design.
+
+00:02:00.800 --> 00:02:04.800
+So this I found is super important for increasing the quality of what you put out there.
+
+00:02:04.800 --> 00:02:08.000
+So that grill with docs to implement that really the core.
+
+00:02:08.000 --> 00:02:10.960
+That's what you do on simple bug fixes, simple features,
+
+00:02:10.960 --> 00:02:15.520
+where you can squeeze the grill with docs and implement into a single context window.
+
+00:02:15.520 --> 00:02:18.720
+And by the way, I don't mean just like one million tokens.
+
+00:02:18.720 --> 00:02:22.000
+I really mean the smart zone of the context window,
+
+00:02:22.000 --> 00:02:25.120
+which inside my AI coding dictionary, you can see defined here.
+
+00:02:25.120 --> 00:02:27.200
+Early in the session, the agent is sharpened focused.
+
+00:02:27.200 --> 00:02:29.920
+As the session grows, it drifts into a dumb zone,
+
+00:02:29.920 --> 00:02:31.920
+sloppyer forgetful, more mistakes.
+
+00:02:31.920 --> 00:02:35.200
+And the smart zone really is around 150K tokens.
+
+00:02:35.200 --> 00:02:36.400
+It's really not that big.
+
+00:02:36.400 --> 00:02:39.440
+I mean, your mileage may vary, but that's kind of my working metric.
+
+00:02:39.440 --> 00:02:44.160
+And so what happens when you have a task that you know is going to take more than 150K tokens?
+
+00:02:44.160 --> 00:02:47.360
+What about 250K? What about a million tokens?
+
+00:02:47.440 --> 00:02:48.720
+Well, for that, you do two things.
+
+00:02:48.720 --> 00:02:50.400
+You first define a spec.
+
+00:02:50.400 --> 00:02:53.680
+So you do your grilling session and then you define a spec.
+
+00:02:53.680 --> 00:02:56.240
+That spec is going to sit in your issue tracker.
+
+00:02:56.240 --> 00:02:57.840
+So that issue tracker might be GitHub,
+
+00:02:57.840 --> 00:03:00.400
+might be beads, might be linear, Jira, whatever.
+
+00:03:00.400 --> 00:03:02.640
+And you can set up what issue tracker you're using
+
+00:03:02.640 --> 00:03:05.280
+with the set up MacBook skills skill.
+
+00:03:05.280 --> 00:03:07.680
+So this one actually modifies your repo to say,
+
+00:03:07.680 --> 00:03:10.080
+this is the issue tracker we're using, blah, blah, blah, blah.
+
+00:03:10.080 --> 00:03:14.160
+So to spec, what that then does is it takes the grill with docs session
+
+00:03:14.240 --> 00:03:16.800
+and it outputs a really nice specification
+
+00:03:16.800 --> 00:03:18.560
+that you can use as a destination.
+
+00:03:18.560 --> 00:03:22.000
+The journey, the question of how you actually build the thing,
+
+00:03:22.000 --> 00:03:23.840
+that is down to two tickets.
+
+00:03:23.840 --> 00:03:26.080
+So you have your spec, which is the destination,
+
+00:03:26.080 --> 00:03:30.480
+and then each individual session of the agent that's building it,
+
+00:03:30.480 --> 00:03:32.720
+each agent is going to get an individual ticket.
+
+00:03:32.720 --> 00:03:34.720
+So just like you would have an epic before,
+
+00:03:34.720 --> 00:03:36.880
+where you would define what it is your building
+
+00:03:36.880 --> 00:03:39.600
+and then you pass the tickets to the developers.
+
+00:03:39.600 --> 00:03:41.840
+Now you're basically saying, okay, we've got the spec.
+
+00:03:42.000 --> 00:03:44.800
+That's where we're going and the tickets go to individual agents.
+
+00:03:44.800 --> 00:03:47.680
+From there, each agent is going to implement that ticket
+
+00:03:47.680 --> 00:03:48.960
+using the implement skill.
+
+00:03:48.960 --> 00:03:50.640
+So it's kind of like the same flow.
+
+00:03:50.640 --> 00:03:52.560
+It's just we've got a step to divide it up
+
+00:03:52.560 --> 00:03:54.000
+over multiple context windows.
+
+00:03:54.000 --> 00:03:55.120
+So this is fine.
+
+00:03:55.120 --> 00:03:59.760
+This setup, when grill with docs can fit inside one session.
+
+00:03:59.760 --> 00:04:02.640
+But what about when you need to plan something absolutely
+
+00:04:02.640 --> 00:04:05.760
+enormous, something that will grow outside one smart zone?
+
+00:04:05.760 --> 00:04:08.160
+Well, for that, you can use the Wayfinder skill down here.
+
+00:04:08.160 --> 00:04:10.000
+So we're down to shaping now.
+
+00:04:10.160 --> 00:04:12.800
+The Wayfinder skill allows you to orchestrate
+
+00:04:12.800 --> 00:04:16.320
+multiple context windows, kind of like to spec into tickets do
+
+00:04:16.320 --> 00:04:17.520
+for implementation.
+
+00:04:17.520 --> 00:04:18.640
+It does for planning.
+
+00:04:18.640 --> 00:04:20.400
+Wayfinder will grill you a little bit
+
+00:04:20.400 --> 00:04:21.680
+on the thing that you're trying to build
+
+00:04:21.680 --> 00:04:25.040
+and then create a map from which you can put tickets into.
+
+00:04:25.040 --> 00:04:27.760
+So it actually goes into your issue tracker as well.
+
+00:04:27.760 --> 00:04:29.920
+But these tickets are not implementation tickets.
+
+00:04:29.920 --> 00:04:31.360
+They're decision tickets.
+
+00:04:31.360 --> 00:04:34.560
+So Wayfinder will say, okay, we need to decide about this thing first
+
+00:04:34.560 --> 00:04:37.320
+and then we maybe need to build a prototype based on that.
+
+00:04:37.320 --> 00:04:39.440
+So it might use the prototype skill for that.
+
+00:04:39.600 --> 00:04:42.240
+It might then say, okay, we need to research something as well.
+
+00:04:42.240 --> 00:04:44.720
+We need like the external documentation for that
+
+00:04:44.720 --> 00:04:46.240
+or we need to do a bit of market research.
+
+00:04:46.240 --> 00:04:47.680
+Then we can use the research skill.
+
+00:04:47.680 --> 00:04:50.160
+Once you end up with a proper Wayfinder map
+
+00:04:50.160 --> 00:04:52.080
+where all of the decisions have been made,
+
+00:04:52.080 --> 00:04:54.720
+all of the subissues of the map are closed,
+
+00:04:54.720 --> 00:04:56.880
+then you go into to spec again
+
+00:04:56.880 --> 00:04:59.280
+and you go through the tickets to actually build out the thing.
+
+00:04:59.280 --> 00:05:01.360
+By the way, I'm not really doing Wayfinder justice
+
+00:05:01.360 --> 00:05:03.960
+in this section like Wayfinder is a massive skill
+
+00:05:03.960 --> 00:05:04.800
+all by itself.
+
+00:05:04.800 --> 00:05:06.480
+And if you have any follow up questions to this,
+
+00:05:06.480 --> 00:05:08.200
+obviously you can ask in the thread below.
+
+00:05:08.200 --> 00:05:10.120
+But you can also just use the Ask Matt skill
+
+00:05:10.120 --> 00:05:12.840
+which has information encoded in all of the docs,
+
+00:05:12.840 --> 00:05:15.240
+but it's right there for you to use it.
+
+00:05:15.240 --> 00:05:18.280
+So you can actually ask it about your current situation
+
+00:05:18.280 --> 00:05:20.280
+and which skill would be best useful.
+
+00:05:20.280 --> 00:05:21.800
+Best useful, most useful.
+
+00:05:21.800 --> 00:05:23.720
+You can see I'm not spending much time on this video.
+
+00:05:23.720 --> 00:05:25.080
+So that then is getting started.
+
+00:05:25.080 --> 00:05:26.840
+That is the main flow and that shaping.
+
+00:05:26.840 --> 00:05:28.840
+And then we have a few upkeep skills.
+
+00:05:28.840 --> 00:05:30.160
+The first two are pretty simple.
+
+00:05:30.160 --> 00:05:32.960
+The diagnosing bug skill and the resolving mode conflict skill
+
+00:05:32.960 --> 00:05:37.120
+are basically trying to make the model better at things.
+
+00:05:37.120 --> 00:05:39.680
+Most of my skills are designed to be user invoked.
+
+00:05:39.680 --> 00:05:43.080
+So the model doesn't even know about them until they pop up
+
+00:05:43.080 --> 00:05:45.640
+which makes my skills very low on context load.
+
+00:05:45.640 --> 00:05:49.400
+But diagnosing bugs, I found this gives a really great feedback loop
+
+00:05:49.400 --> 00:05:52.080
+to the agent to basically say, okay, you're going to diagnose
+
+00:05:52.080 --> 00:05:54.840
+a hard bug, you're going to create a rigorous feedback loop.
+
+00:05:54.840 --> 00:05:56.440
+Here are the steps I would take.
+
+00:05:56.440 --> 00:05:58.200
+So I found that models are just not very good at it.
+
+00:05:58.200 --> 00:06:00.440
+So that's my way of improving them
+
+00:06:00.440 --> 00:06:01.560
+and it does a really good job.
+
+00:06:01.560 --> 00:06:02.880
+Resolving merge conflicts as well.
+
+00:06:02.880 --> 00:06:05.920
+I was noticing that I was just getting some terrible
+
+00:06:05.920 --> 00:06:07.760
+merge conflict resolutions from my agents.
+
+00:06:07.760 --> 00:06:11.560
+And so this, what it does is it goes back and forces it
+
+00:06:11.560 --> 00:06:15.000
+to look at primary sources to get blame really far back
+
+00:06:15.000 --> 00:06:17.640
+until it understands why every change was made.
+
+00:06:17.640 --> 00:06:19.080
+If you've ever heard of Chesterton's fence,
+
+00:06:19.080 --> 00:06:20.760
+this is exactly what this is doing.
+
+00:06:20.760 --> 00:06:23.760
+You never remove a fence if you don't know why it was there.
+
+00:06:23.760 --> 00:06:26.040
+And that's what the resolving mode conflict skill does.
+
+00:06:26.040 --> 00:06:29.000
+The triage skill is one that I've kind of gone away
+
+00:06:29.000 --> 00:06:29.840
+from a little bit.
+
+00:06:29.840 --> 00:06:31.280
+I don't use it very much.
+
+00:06:31.280 --> 00:06:33.480
+But it's essentially a full triaging
+
+00:06:33.480 --> 00:06:36.760
+any set of issues that you didn't create.
+
+00:06:36.760 --> 00:06:39.280
+In other words, it's great for open source projects
+
+00:06:39.280 --> 00:06:40.280
+where you just need to go, okay,
+
+00:06:40.280 --> 00:06:41.960
+I've got a huge list of open issues.
+
+00:06:41.960 --> 00:06:43.440
+How do I burn them down?
+
+00:06:43.440 --> 00:06:45.200
+The triage skill is great for that.
+
+00:06:45.200 --> 00:06:47.200
+The wizard skill is another great skill.
+
+00:06:47.200 --> 00:06:49.720
+I was getting really sick of provisioning
+
+00:06:49.720 --> 00:06:53.240
+like third party services and creating API keys
+
+00:06:53.240 --> 00:06:54.160
+and all that stuff.
+
+00:06:54.160 --> 00:06:56.080
+And the wizard, what it does is it generates a script
+
+00:06:56.080 --> 00:06:58.520
+that walks a human through the setup,
+
+00:06:58.520 --> 00:07:00.680
+helping it as much as it can.
+
+00:07:00.680 --> 00:07:02.640
+And so this means that you can basically say
+
+00:07:02.640 --> 00:07:05.640
+just create me a wizard to walk through provisioning
+
+00:07:05.640 --> 00:07:08.320
+these 10 AWS services and it will do it.
+
+00:07:08.320 --> 00:07:10.280
+It will open all of the URLs for you.
+
+00:07:10.280 --> 00:07:13.200
+It will save the environment variables that you need to.
+
+00:07:13.200 --> 00:07:16.160
+It will help you as much as possible with the CLI itself.
+
+00:07:16.160 --> 00:07:17.880
+The wizard skill is such a lifesaver.
+
+00:07:17.880 --> 00:07:20.560
+And then all the improved code based architecture skill
+
+00:07:20.560 --> 00:07:22.040
+is such a nice one.
+
+00:07:22.040 --> 00:07:23.800
+This creates a visual report for you
+
+00:07:23.800 --> 00:07:25.600
+so that you can look at,
+
+00:07:25.600 --> 00:07:27.360
+you can basically point it at your repo
+
+00:07:27.360 --> 00:07:29.840
+and just say improve code based architecture
+
+00:07:29.840 --> 00:07:31.440
+in this specific area.
+
+00:07:31.440 --> 00:07:33.280
+And it will give you lots of candidates
+
+00:07:33.280 --> 00:07:36.560
+for different ways that you can refactor your application
+
+00:07:36.560 --> 00:07:38.000
+to improve your test suite,
+
+00:07:38.000 --> 00:07:39.880
+to deepen your modules,
+
+00:07:39.880 --> 00:07:42.280
+to make your code based just generally better
+
+00:07:42.280 --> 00:07:44.040
+and easier to make changes in.
+
+00:07:44.040 --> 00:07:45.440
+I could bang on and on about that skill,
+
+00:07:45.440 --> 00:07:46.600
+but I've already got a video on it.
+
+00:07:46.600 --> 00:07:47.480
+We've got the Gromy skill,
+
+00:07:47.480 --> 00:07:50.440
+which is the classic kind of like grilling without docks.
+
+00:07:50.440 --> 00:07:52.680
+The hand off skill is when you want to hand off
+
+00:07:52.680 --> 00:07:53.760
+to another agent.
+
+00:07:53.760 --> 00:07:55.280
+I find this really, really useful
+
+00:07:55.280 --> 00:07:57.960
+because you can just basically just write a markdown file
+
+00:07:57.960 --> 00:08:00.000
+if the thing you want that other agent to do
+
+00:08:00.000 --> 00:08:01.000
+and it goes and does it.
+
+00:08:01.080 --> 00:08:02.640
+So to questionnaire skill is a great one.
+
+00:08:02.640 --> 00:08:06.600
+This one is, it's a way of taking a grilling session offline.
+
+00:08:06.600 --> 00:08:08.040
+So when you're having a grilling session
+
+00:08:08.040 --> 00:08:11.000
+and you realize, oh, I actually just need someone else's help
+
+00:08:11.000 --> 00:08:13.200
+with this, you can take the grilling session
+
+00:08:13.200 --> 00:08:15.560
+and you can turn it into a questionnaire.
+
+00:08:15.560 --> 00:08:16.960
+This saves it as a markdown file
+
+00:08:16.960 --> 00:08:18.840
+that you can then save into a Google doc.
+
+00:08:18.840 --> 00:08:20.640
+You can walk through that questionnaire
+
+00:08:20.640 --> 00:08:22.520
+with the person that you need answers from
+
+00:08:22.520 --> 00:08:23.920
+and then feed that back to the agent.
+
+00:08:23.920 --> 00:08:26.600
+The teach skill is just a remarkable little skill.
+
+00:08:26.600 --> 00:08:30.360
+It creates HTML lessons to essentially teach you
+
+00:08:30.400 --> 00:08:33.480
+anything that you can create a teaching workspace
+
+00:08:33.480 --> 00:08:35.920
+where it's essentially trying to guide you
+
+00:08:35.920 --> 00:08:38.320
+to learn that thing and learn the knowledge,
+
+00:08:38.320 --> 00:08:40.480
+the skills and the wisdom that you need
+
+00:08:40.480 --> 00:08:42.280
+in order to actually learn it.
+
+00:08:42.280 --> 00:08:44.320
+And it's actually taught me a lot.
+
+00:08:44.320 --> 00:08:45.600
+It's an incredible skill.
+
+00:08:45.600 --> 00:08:46.840
+I really recommend you try it.
+
+00:08:46.840 --> 00:08:48.520
+It's amazing for curious people.
+
+00:08:48.520 --> 00:08:51.760
+It's also absolutely nuts for onboarding onto co-bases.
+
+00:08:51.760 --> 00:08:53.840
+You just say teach me about this repo
+
+00:08:53.840 --> 00:08:55.920
+and it will create you a course,
+
+00:08:55.920 --> 00:08:58.320
+a just in time course for that repo.
+
+00:08:58.320 --> 00:09:01.200
+The WeightWatt skill is essentially an answer
+
+00:09:01.200 --> 00:09:03.800
+to Opus 5 being incredibly verbose.
+
+00:09:03.800 --> 00:09:06.320
+You can get it, essentially use, you know,
+
+00:09:06.320 --> 00:09:08.560
+the model spits out some garbage and you say,
+
+00:09:08.560 --> 00:09:11.120
+WeightWatt and it goes and repeats it again
+
+00:09:11.120 --> 00:09:13.880
+but this time a lot cleaner, a lot easier to understand.
+
+00:09:13.880 --> 00:09:16.560
+And using the domain language that you created
+
+00:09:16.560 --> 00:09:18.400
+in the grill with doc skill,
+
+00:09:18.400 --> 00:09:19.760
+so it feeds into that too.
+
+00:09:19.760 --> 00:09:21.280
+The writing for agent skill is similar
+
+00:09:21.280 --> 00:09:23.120
+to the diagnosing bugs skill,
+
+00:09:23.120 --> 00:09:26.240
+which is it's able, the model is able to invoke it.
+
+00:09:26.240 --> 00:09:29.320
+And it's essentially a skill writing skill.
+
+00:09:29.320 --> 00:09:32.240
+It's also able to work on your agents.md
+
+00:09:32.240 --> 00:09:35.480
+or any documentation that is agent focused.
+
+00:09:35.480 --> 00:09:36.520
+These skills are pretty popular
+
+00:09:36.520 --> 00:09:37.640
+and people say they're well written
+
+00:09:37.640 --> 00:09:39.040
+and the writing for agent skill
+
+00:09:39.040 --> 00:09:42.280
+is basically my attempt to encode my skill writing skills
+
+00:09:42.280 --> 00:09:43.280
+into a skill.
+
+00:09:43.280 --> 00:09:45.800
+And then we have a layer of reference skills
+
+00:09:45.800 --> 00:09:47.880
+that are used in lots of other skills.
+
+00:09:47.880 --> 00:09:49.720
+We've already seen the TDD skill,
+
+00:09:49.720 --> 00:09:51.000
+which is used in the implements.
+
+00:09:51.000 --> 00:09:53.440
+We've seen grilling, which is used in wayfinder
+
+00:09:53.440 --> 00:09:55.080
+in grill with docs and grill me.
+
+00:09:55.080 --> 00:09:56.400
+We've got the domain modeling skill,
+
+00:09:56.400 --> 00:09:57.920
+which is used in grill with docs
+
+00:09:57.920 --> 00:10:00.360
+and we've got the code-based design skill
+
+00:10:00.360 --> 00:10:02.800
+which is used in various places.
+
+00:10:02.800 --> 00:10:04.800
+Oh my god, I really tried to make this a short video.
+
+00:10:04.800 --> 00:10:08.200
+I really did try, but I guess when you create 25 skills
+
+00:10:08.200 --> 00:10:09.240
+and you wanna talk about all of them,
+
+00:10:09.240 --> 00:10:10.480
+that's quite a lot of words.
+
+00:10:10.480 --> 00:10:11.560
+But thank you so much for watching.
+
+00:10:11.560 --> 00:10:12.720
+If you're interested in the stuff
+
+00:10:12.720 --> 00:10:15.200
+then do sign up for the aircoding crash course
+
+00:10:15.200 --> 00:10:16.680
+dropping on Monday.
+
+00:10:16.680 --> 00:10:18.360
+I will see you very soon.
+

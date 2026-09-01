@@ -1,0 +1,19 @@
+{
+  "id": "BV1zUh56RE8k",
+  "platform": "bilibili",
+  "title": "Matt Pocock：十分钟讲完 25 个 Skills | mattpocock/skills v1.2.3【中英字幕】",
+  "upload_date": "20260825",
+  "timestamp": 1787659009,
+  "duration": 1343,
+  "duration_string": "22:23",
+  "view_count": 6407,
+  "like_count": 224,
+  "comment_count": 21,
+  "channel": "ChHsich",
+  "channel_id": "bili:588699709",
+  "channel_url": "https://space.bilibili.com/588699709",
+  "description": "Matt Pocock 用 10 分钟把他开源 skills 仓库里的全部 25 个技能讲了一遍：从对齐需求的 grill-with-docs，到编排多窗口规划的 Wayfinder。这套技能围绕\"真实工程\"而非氛围编程设计，仓库已收获 236k stars。\n\n看点：\n1. 上下文窗口的\"聪明区\"只有约 150K token——超过了就拆成 spec 和工单分窗口干，这个模型贯穿整套 skills\n2. 大多数技能要用户手动调用，agent 平时根本不知道它们存在，所以上下文占用几乎为零——和\"装一堆自动触发技能\"的路子反着来\n3. 25 个技能不是平铺的清单，而是一条流程链：拷问对齐 → 规格书 → 工单 → 实现 → 双轴评审，超大工程再叠一层 Wayfinder 决策地图\n\n关键内容：\n· 安装：Claude Code 插件（托管式，随作者更新）或 npx skills（拷贝进项目，随便改）两种方式\n· 核心流程：Grill with Docs 拷问对齐需求 → implement 实现（内含 TDD 红绿重构循环）→ Code Review 双轴检查（规范轴 + 设计轴）\n· 聪明区：会话早期 agent 敏锐专注，拉长后滑进\"迟钝区\"；150K token 是作者的工作经验值（出自其 AI 编程词典）\n· 大任务拆分：to-spec 把拷问会话整理成规格书，存进 issue tracker（GitHub / Beads / Linear / Jira），to-tickets 再拆成工单分给多个 agent\n· 超大规划：Wayfinder 生成决策工单地图，配合 prototype 原型和 research 调研，全部决策闭环后再回到 to-spec 落地\n· 保养技能：Diagnosing Bugs 疑难 bug 诊断循环；Resolving Merge Conflicts 追 git blame 到每处改动的原始动机（切斯特顿栅栏原则）\n· 分诊与向导：triage 消化开源项目堆积的 open issues；wizard 生成交互脚本，带人完成配置 AWS、API key 这类只有人能做的步骤\n· 架构保养：Improve Codebase Architecture 扫描代码库，输出可视化架构改进报告\n· 其他：Grill Me 纯拷问、handoff 会话交接、to-questionnaire 离线问卷、teach 定制课程（上手陌生代码库一绝）、wait-what 治啰嗦、Writing for Agents 写技能的技能\n· 底层参考技能：TDD、grilling、Domain Modeling、Codebase Design\n\n来源：\n· 作者：Matt Pocock\n· 原视频：https://x.com/mattpocockuk/status/2088290952704151671\n· 仓库：https://github.com/mattpocock/skills\n· 词典：https://www.aihero.dev/ai-coding-dictionary\n· 时间：2026.8.14\n\n字幕：AI 辅助转录 + 翻译并经人工校对。如有不准确之处，欢迎指出。",
+  "tags": [],
+  "chapters": [],
+  "webpage_url": "https://www.bilibili.com/video/BV1zUh56RE8k"
+}

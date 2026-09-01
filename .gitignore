@@ -1,0 +1,63 @@
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+build/
+develop-eggs/
+dist/
+downloads/
+eggs/
+.eggs/
+lib/
+lib64/
+parts/
+sdist/
+var/
+wheels/
+*.egg-info/
+.installed.cfg
+*.egg
+
+# Virtual Environments
+.env
+.venv
+env/
+venv/
+ENV/
+env.bak/
+venv.bak/
+
+# Logs and databases
+*.log
+*.sqlite3
+
+# Credentials & Sensitive files
+cookies.txt
+video2md/cookies.txt
+_cookies.txt
+video2md/_cookies.txt
+*.cookie
+*.cookies
+
+# Media & Audio Caches (Large binaries)
+*.m4a
+*.mp3
+*.mp4
+*.wav
+*.flac
+*.webm
+video2md/*/audio/
+*.part
+
+# IDE & Editor artifacts
+.vscode/
+.idea/
+.specstory/
+.cursor/
+*.swp
+*.swo
+*~
+.DS_Store
+Thumbs.db

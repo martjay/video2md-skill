@@ -1,0 +1,320 @@
+WEBVTT
+
+00:00:00.000 --> 00:00:06.880
+AI imposes super weird constraints on your code base, and most code bases out there in the world
+
+00:00:06.880 --> 00:00:12.000
+probably including yours are not ready. Your code base way more than the prompt that you used
+
+00:00:12.000 --> 00:00:17.760
+way more than your agents.md file is the biggest influence on AI's output, and if it's designed
+
+00:00:17.760 --> 00:00:22.400
+wrong, it can cost you in a bunch of different ways. It can mean that the AI doesn't receive feedback
+
+00:00:22.400 --> 00:00:27.120
+fast enough, so it doesn't know if what it changed actually did what it intended. It can find it super
+
+00:00:27.120 --> 00:00:31.760
+hard to make sense of things, and find files, and work out even how to test things. And finally,
+
+00:00:31.760 --> 00:00:37.040
+it can lead you into cognitive burnout as you try to hold together AI and your code base and
+
+00:00:37.040 --> 00:00:41.760
+patch it all up and keep everything in your mind. And my thesis here is that software quality matters
+
+00:00:41.760 --> 00:00:48.240
+more than ever. In other words, how easy your code base is to change makes a huge impact on how
+
+00:00:48.240 --> 00:00:53.360
+AI then goes and changes it, and the stuff that we've known about software best practices for 20 years
+
+00:00:53.360 --> 00:00:57.280
+still holds more true than ever. And if you're interested in getting better at this stuff, then check
+
+00:00:57.280 --> 00:01:02.480
+out my newsletter AI hero. I teach you all about AI coding, but this is not full vibe coders. This
+
+00:01:02.480 --> 00:01:07.200
+is for real engineers solving real problems. And if that's you and you're not sure how to handle
+
+00:01:07.200 --> 00:01:12.000
+these new tools, then you are going to love it. Now let's imagine that this here is our code base.
+
+00:01:12.000 --> 00:01:16.800
+Each one of these little squares represents a module, and this module might export some functionality,
+
+00:01:16.800 --> 00:01:21.040
+it might export a function, it might export some variables, it might export a component if it's like
+
+00:01:21.600 --> 00:01:26.320
+a react or a frontend thing. I want you to imagine that this is the image of your code base that you
+
+00:01:26.320 --> 00:01:31.280
+hold in your head. Now you might inside here have some vague groupings of different functionality. For
+
+00:01:31.280 --> 00:01:35.600
+instance, here you might have let's say a thumbnail editor feature, and all of these different modules
+
+00:01:35.600 --> 00:01:39.760
+contribute to that. Over here you might have a little video editor feature or something. Down here
+
+00:01:39.760 --> 00:01:44.960
+is all the code related to authentication. Up here is a bunch of crud forms for updating stuff, maybe
+
+00:01:44.960 --> 00:01:49.360
+in a CMS. And over here are a couple of example features that I can't be bothered to think of examples
+
+00:01:49.360 --> 00:01:54.240
+for. Now this map that I've created here of all of the located modules, in this particular code base,
+
+00:01:54.240 --> 00:01:58.720
+they're not actually reflected that much in the file system. They're all really jumbled up together.
+
+00:01:58.720 --> 00:02:03.840
+If I want to just grab let's say an export from this module and import it down into this module,
+
+00:02:03.840 --> 00:02:07.760
+I can. There's nothing stopping me. And so what you might end up with is a bunch of kind of disparate
+
+00:02:07.760 --> 00:02:12.400
+relationships between stuff that doesn't actually relate to each other. Now you as the developer understand
+
+00:02:12.400 --> 00:02:17.520
+the mental map between all of these modules. But what the AI sees when it first goes into your code base
+
+00:02:17.520 --> 00:02:22.640
+is this. It doesn't see all of the natural groupings and all the natural relationships. What it
+
+00:02:22.640 --> 00:02:27.200
+sees is a bunch of disparate modules that can all import from each other. That's because AI, when it
+
+00:02:27.200 --> 00:02:32.000
+jumps into your code base, it has no memory. It has not experienced your code base before. It's like
+
+00:02:32.000 --> 00:02:37.200
+the guy from the memento who just steps in and goes, okay, I'm here. Oh, what am I doing? So my first
+
+00:02:37.200 --> 00:02:43.440
+assertion here is that you need to make sure that the file system and the design of your code base
+
+00:02:43.440 --> 00:02:48.560
+matches this internal map that you have of it. This is because if you describe something over in
+
+00:02:48.560 --> 00:02:53.920
+the video editor section and you use it via a prompt, then you want the AI to be able to find it
+
+00:02:53.920 --> 00:02:59.440
+easily. The AI won't go in knowing every single function, every single module and what they're supposed
+
+00:02:59.440 --> 00:03:04.560
+to do and how they link to each other. And the best way I have found to do that is with deep modules.
+
+00:03:04.560 --> 00:03:09.040
+Now deep modules comes from this book here which is a philosophy of software design. And the idea is
+
+00:03:09.120 --> 00:03:14.480
+that in order to make your system easily navigable and easy to change and also easy to test,
+
+00:03:14.480 --> 00:03:19.840
+is that you have a deep module. So lots of implementation controlled by a simple interface.
+
+00:03:19.840 --> 00:03:25.200
+What that looks like in terms of our graph is instead of many, many small modules, you end up with
+
+00:03:25.200 --> 00:03:31.200
+these big chunks of modules with simple controllable interfaces. And this means that any exports from
+
+00:03:31.200 --> 00:03:36.480
+these modules have to come from that interface. Now when I read that about deep modules, I immediately
+
+00:03:36.560 --> 00:03:42.160
+thought about putting AI in control of these modules. Because this is an opportunity to introduce
+
+00:03:42.160 --> 00:03:47.680
+a kind of seam into the co-base. I don't really care about what's happening inside here, which is
+
+00:03:47.680 --> 00:03:52.320
+the implementation, I just care about what's happening in the interface. Because the interface,
+
+00:03:52.320 --> 00:03:57.840
+which is, you know, the publicly accessible API of this module, I can carefully control and I can
+
+00:03:57.840 --> 00:04:04.640
+apply my taste to and design. And then this stuff inside here, I can just delegate to an AI to control
+
+00:04:04.640 --> 00:04:09.840
+and I can write tests that completely lock down the module in terms of its behavior. So these are
+
+00:04:09.840 --> 00:04:15.520
+not just deep modules with simple interfaces, they're also gray box modules. In other words, I don't
+
+00:04:15.520 --> 00:04:21.200
+actually need to look inside these modules. I can, if I want to, if I want to influence their outcome,
+
+00:04:21.200 --> 00:04:25.920
+or if I need to apply some taste to the implementation or any to improve their performance or something,
+
+00:04:25.920 --> 00:04:30.240
+but as long as the tests are good, then I don't really need to care about what happens inside. Now,
+
+00:04:30.240 --> 00:04:36.320
+this has three massive benefits. The first one is that I can make my co-base way more navigable.
+
+00:04:36.320 --> 00:04:40.240
+Let's, for the sake of argument, just call each of these services, right? The video editor service,
+
+00:04:40.240 --> 00:04:45.120
+the thumbnail service, whatever. If I document these each inside their own folder and I have the
+
+00:04:45.120 --> 00:04:50.640
+publicly accessible interface, kind of like really obvious in a type section, then the AI, when
+
+00:04:50.640 --> 00:04:55.440
+it's exploring my co-base, it can see all of these different services on the file system. It can
+
+00:04:55.520 --> 00:05:00.080
+read and understand the types that they export before it actually looks at the implementation.
+
+00:05:00.080 --> 00:05:04.000
+And then it can say, okay, I've seen the interface. I understand what this does. I don't need to look
+
+00:05:04.000 --> 00:05:07.920
+inside because I can just trust what it's returning. In other words, we've designed our co-base for
+
+00:05:07.920 --> 00:05:13.200
+progressive disclosure of complexity. The interface sits at the top and it just explains what the module
+
+00:05:13.200 --> 00:05:18.480
+does. And then when we need to, we can look inside the module and make changes to it or look at it to
+
+00:05:18.480 --> 00:05:23.600
+understand its behavior more deeply. The second one is that we reduce the cognitive burnout of managing
+
+00:05:23.600 --> 00:05:29.200
+this code base. Now, as a user, I can just go, right, I need something from, I don't know, this
+
+00:05:29.200 --> 00:05:34.880
+made up feature, or let's say the authentication bit over here. Let's see what the public interface is.
+
+00:05:34.880 --> 00:05:39.280
+Let's just grab that and use it. And instead of needing to think about the interrelationships between
+
+00:05:39.280 --> 00:05:44.560
+all of these modules, I can just keep kind of like seven or eight lumps of stuff in my head and go,
+
+00:05:44.560 --> 00:05:49.680
+okay, the AI manages the stuff inside that. I only need to worry about designing the interfaces and how
+
+00:05:49.680 --> 00:05:53.440
+they fit together. Now, this, of course, is still a million miles away from vibe coding because you
+
+00:05:53.440 --> 00:05:58.640
+need to apply taste at the boundaries of these modules. You need to be really good at deciding, okay,
+
+00:05:58.640 --> 00:06:03.040
+what goes into that module, what goes into that module. And what you really want to avoid are lots
+
+00:06:03.040 --> 00:06:07.600
+of little shallow modules, which is kind of what we had up here, right, each of these modules is just
+
+00:06:07.600 --> 00:06:13.280
+like sure. It's kind of interrelated in group together, but really there are lots of tiny shallow modules,
+
+00:06:13.280 --> 00:06:18.640
+which are testable in these tiny units, which are really hard to keep all in your head. And so by
+
+00:06:18.640 --> 00:06:23.760
+simplifying the mental map of the code base, we reduce cognitive burnout that comes from managing
+
+00:06:23.760 --> 00:06:28.720
+this code base. And again, this is nothing new. This is a 20-year-old software practice. And the third one
+
+00:06:28.720 --> 00:06:33.280
+here, I mean, I'm really just repeating myself, but this is what we've been doing all along. This is
+
+00:06:33.280 --> 00:06:39.120
+how good code bases have supposed to have been designed. So what works here for humans is also great
+
+00:06:39.120 --> 00:06:44.000
+for AI. We need to stop thinking about AI as like this super-powered developer as like, you know, it's
+
+00:06:44.000 --> 00:06:48.480
+going to reach AGI and understand that it's got some weird limitations. And the limitations that it
+
+00:06:48.480 --> 00:06:54.160
+has are that it's a new starter in your code base. So you need to make your code base friendly and ready
+
+00:06:54.160 --> 00:07:00.800
+for new starters, because you're going to be spawning like 20 new starters every day here, probably more
+
+00:07:00.800 --> 00:07:04.960
+just to look at your code base and make changes. So that means the map of your code base needs to be
+
+00:07:04.960 --> 00:07:10.560
+easily navigable and it needs to be enforced by using these modules. Now some languages make this
+
+00:07:10.560 --> 00:07:15.600
+easier than others. For instance, in TypeScript and JavaScript, it's actually not that easy to make
+
+00:07:15.600 --> 00:07:21.280
+these services, make these modules sort of boundary in this way. I want to give a quick shout-out to
+
+00:07:21.280 --> 00:07:26.800
+effect, because I posted a video on effect a few months ago. I'm actually using effect way more than
+
+00:07:26.800 --> 00:07:33.520
+I did back then. And it makes this kind of sort of seeming modularizing of your code base really
+
+00:07:33.520 --> 00:07:38.080
+simple. The final thing I want to say here is that you need to be thinking about these modules and how
+
+00:07:38.080 --> 00:07:42.880
+you're affecting them and how you're designing the interfaces in every coding session that you do.
+
+00:07:42.880 --> 00:07:47.440
+That means right from the early planning stage, when you're writing your PRDs or when you're turning
+
+00:07:47.440 --> 00:07:51.280
+your PRDs into implementation issues, you need to be thinking about the modules that you're
+
+00:07:51.280 --> 00:07:55.840
+affecting and the interfaces and how you are going to test them. Because tests and feedback loops
+
+00:07:55.840 --> 00:08:01.120
+are essential for an AI because of course, they're essential for a new starter joining the code base.
+
+00:08:01.120 --> 00:08:06.160
+If you want a new starter to contribute effectively, you need a well-tested code base so they can see what
+
+00:08:06.240 --> 00:08:11.200
+their changes do as they ripple out. So that's my rant for today. Your code base is probably not ready
+
+00:08:11.200 --> 00:08:16.880
+for AI because you're not using enough deep modules. And instead you've got a web of interconnected
+
+00:08:16.880 --> 00:08:22.560
+kind of shallow modules like this which are really hard to navigate and really hard to test and
+
+00:08:22.560 --> 00:08:26.480
+really hard to keep in your head. Now if you dig this then of course you will dig my newsletter where
+
+00:08:26.480 --> 00:08:30.560
+we go more deeply into topics like this. Thanks for watching folks, what else do you think goes into making
+
+00:08:30.560 --> 00:08:35.760
+a great code base for AI? I really love this metaphor for deep modules but I know it's not the only one
+
+00:08:35.760 --> 00:08:39.840
+going there are plenty out there. Thanks for watching and I will see you very soon. So when you're
+
+00:08:39.840 --> 00:08:44.560
+thinking about your code base with AI, what are you thinking about? What kind of 20-year-old books do you
+
+00:08:44.560 --> 00:08:48.720
+want to recommend? Leave it in the comments. It's the easiest way to keep up with all my stuff and the link
+
+00:08:48.720 --> 00:08:50.320
+is below.
+

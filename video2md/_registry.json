@@ -21,6 +21,16 @@
       ],
       "created": "2026-09-01",
       "updated": "2026-09-01"
+    },
+    "bili:573250412": {
+      "channel_id": "bili:573250412",
+      "platform": "bilibili",
+      "display_name": "知识搬运工-Coding",
+      "folder": "知识搬运工-coding",
+      "aliases": [
+        "知识搬运工-Coding"
+      ],
+      "created": "2026-09-01"
     }
   }
 }

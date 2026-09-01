@@ -1,0 +1,25 @@
+{
+  "id": "BV1HnM269EV7",
+  "platform": "bilibili",
+  "title": "Matt Skills | 你的代码库还没准备好迎接AI？这样改才能让AI真正高效工作",
+  "upload_date": "20260805",
+  "timestamp": 1785943985,
+  "duration": 529.949,
+  "duration_string": "08:49",
+  "view_count": 3299,
+  "like_count": 76,
+  "comment_count": 14,
+  "channel": "知识搬运工-Coding",
+  "channel_id": "573250412",
+  "channel_url": null,
+  "description": "AI对代码库的约束远超你的想象。本文从深度模块角度，教你如何重构代码库，让AI轻松理解、修改和测试。",
+  "tags": [
+    "编程",
+    "AI Agent",
+    "Vibe Coding",
+    "大模型"
+  ],
+  "categories": [],
+  "chapters": [],
+  "webpage_url": "https://www.bilibili.com/video/BV1HnM269EV7"
+}

@@ -15,30 +15,28 @@
 - **“每天入职 20 次的新员工”法则 (20-Onboardings-a-Day)**：AI 没有跨会话心智地图，每次新建聊天窗口都如同一个第一天入职的新人。如果代码库充斥着网状引用的浅模块，AI 会迅速陷入注意力过载与逻辑混乱；
 - **深模块是唯一的破局之道**：将系统收敛为 7~8 个顶层深模块（高内聚实现 + 极简强类型公开接口），实现“渐进式复杂度披露”，将实现细节彻底委托给 AI 灰盒托管。
 
-### 2. 浅模块网状混乱 vs 深模块灰盒接缝全景对比
+#### ❌ 传统浅模块网状泥球（AI 极易迷失 & 认知透支）
 
 ```mermaid
-flowchart TD
-    subgraph S1 ["传统浅模块网状泥球 - AI 极易迷失"]
-        A1["业务小文件 1"] --> B1["工具 a.ts"]
-        A1 --> B2["工具 b.ts"]
-        A2["业务小文件 2"] --> B1
-        B1 --> C1["跨层引用 c.ts"]
-        B2 --> C2["全局状态 d.ts"]
-        style A1 fill:#ef4444,stroke:#991b1b,color:#ffffff
-        style A2 fill:#ef4444,stroke:#991b1b,color:#ffffff
-    end
+flowchart LR
+    A1["业务小文件 1"] --> B1["工具 a.ts"]
+    A1 --> B2["工具 b.ts"]
+    A2["业务小文件 2"] --> B1
+    B1 --> C1["跨层引用 c.ts"]
+    B2 --> C2["全局状态 d.ts"]
+    style A1 fill:#ef4444,stroke:#991b1b,color:#ffffff
+    style A2 fill:#ef4444,stroke:#991b1b,color:#ffffff
+```
 
-    subgraph S2 ["现代深模块灰盒架构 - AI 极度友好"]
-        Facade["公开极简接缝 Facade index.ts<br/>暴露少于50行纯类型契约"]
-        Internal["高内聚实现 internal 目录<br/>封装 1000+ 行复杂逻辑"]
-        TestHarness["行为契约测试 Vitest<br/>锁定公开接缝行为"]
-        Facade --> Internal
-        TestHarness -.-> Facade
-        style Facade fill:#22c55e,stroke:#166534,color:#ffffff
-        style Internal fill:#3b82f6,stroke:#1d4ed8,color:#ffffff
-        style TestHarness fill:#f59e0b,stroke:#b45309,color:#ffffff
-    end
+#### ✅ 现代深模块灰盒架构（AI 极度友好 & 零认知过载）
+
+```mermaid
+flowchart LR
+    Facade["公开极简接缝 Facade index.ts<br/>暴露少于50行纯类型契约与入口"] --> Internal["高内聚实现 internal 目录<br/>封装 1000+ 行复杂逻辑与异常处理"]
+    TestHarness["行为契约测试 Vitest<br/>锁定公开接缝行为"] -.-> Facade
+    style Facade fill:#22c55e,stroke:#166534,color:#ffffff
+    style Internal fill:#3b82f6,stroke:#1d4ed8,color:#ffffff
+    style TestHarness fill:#f59e0b,stroke:#b45309,color:#ffffff
 ```
 
 ---

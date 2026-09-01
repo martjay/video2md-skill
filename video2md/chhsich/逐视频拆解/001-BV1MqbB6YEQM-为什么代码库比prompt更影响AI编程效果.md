@@ -28,33 +28,29 @@
 - **底层真相**：**代码库的架构设计，才是 AI 每次编码时身处的“物理环境”**。
 - **《记忆碎片》隐喻**：AI 就像电影《记忆碎片》的主角（患有顺行性遗忘症），每次启动新会话，都是一个对你的业务毫无记忆的全新工程师；如果代码库充斥着网状引用的“浅模块”，AI 就必须把几十个文件同时塞进上下文窗口，导致注意力稀释、记忆漂移与幻觉频发。
 
-### 2. 深模块架构心智模型对比图
+#### ❌ 传统浅模块代码库（Shallow Modules - AI 极易迷失）
 
 ```mermaid
-flowchart TD
-    subgraph S1 ["传统浅模块代码库 - AI 极易迷失"]
-        direction TB
-        A1["业务入口 A"] --> B1["小工具 a1.ts"]
-        A1 --> B2["小工具 a2.ts"]
-        B1 --> C1["跨层引用 c1.ts"]
-        B2 --> C2["全局状态 g.ts"]
-        A2["业务入口 B"] --> B1
-        A2 --> C1
-        style A1 fill:#ef4444,stroke:#991b1b,color:#ffffff
-        style A2 fill:#ef4444,stroke:#991b1b,color:#ffffff
-    end
+flowchart LR
+    A1["业务入口 A"] --> B1["小工具 a1.ts"]
+    A1 --> B2["小工具 a2.ts"]
+    B1 --> C1["跨层引用 c1.ts"]
+    B2 --> C2["全局状态 g.ts"]
+    A2["业务入口 B"] --> B1
+    A2 --> C1
+    style A1 fill:#ef4444,stroke:#991b1b,color:#ffffff
+    style A2 fill:#ef4444,stroke:#991b1b,color:#ffffff
+```
 
-    subgraph S2 ["现代深模块架构 - AI 极度友好"]
-        direction TB
-        Facade["公开极简接缝 Facade index.ts<br/>仅暴露 1~2 个纯类型与高阶函数"]
-        DeepCore["高内聚内部实现 internal 目录<br/>封装 1000+ 行复杂逻辑与错误处理"]
-        TestHarness["行为契约测试 Vitest<br/>锁定公开接缝行为"]
-        Facade --> DeepCore
-        TestHarness -.-> Facade
-        style Facade fill:#22c55e,stroke:#166534,color:#ffffff
-        style DeepCore fill:#3b82f6,stroke:#1d4ed8,color:#ffffff
-        style TestHarness fill:#f59e0b,stroke:#b45309,color:#ffffff
-    end
+#### ✅ 现代深模块架构（Deep Modules - AI 极度友好）
+
+```mermaid
+flowchart LR
+    Facade["公开极简接缝 Facade index.ts<br/>仅暴露 1~2 个纯类型与高阶函数"] --> DeepCore["高内聚内部实现 internal 目录<br/>封装 1000+ 行复杂逻辑与错误处理"]
+    TestHarness["行为契约测试 Vitest<br/>锁定公开接缝行为"] -.-> Facade
+    style Facade fill:#22c55e,stroke:#166534,color:#ffffff
+    style DeepCore fill:#3b82f6,stroke:#1d4ed8,color:#ffffff
+    style TestHarness fill:#f59e0b,stroke:#b45309,color:#ffffff
 ```
 
 ---

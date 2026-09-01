@@ -18,8 +18,8 @@
 ### 2. 浅模块网状混乱 vs 深模块灰盒接缝全景对比
 
 ```mermaid
-graph TD
-    subgraph 传统浅模块网状泥球 (AI 极易迷失 & 认知透支)
+flowchart TD
+    subgraph S1 ["传统浅模块网状泥球 - AI 极易迷失"]
         A1["业务小文件 1"] --> B1["工具 a.ts"]
         A1 --> B2["工具 b.ts"]
         A2["业务小文件 2"] --> B1
@@ -27,13 +27,14 @@ graph TD
         B2 --> C2["全局状态 d.ts"]
         style A1 fill:#ef4444,stroke:#991b1b,color:#ffffff
         style A2 fill:#ef4444,stroke:#991b1b,color:#ffffff
-        note1["特点: 接口复杂度 ≈ 实现复杂度<br/>AI 必须加载 10+ 文件才能理解"]
     end
 
-    subgraph 现代深模块灰盒架构 (AI 极度友好 & 零认知过载)
-        Facade["公开极简接缝 (Facade / index.ts)<br/>暴露 <50 行纯类型契约与入口函数"]
-        Facade --> Internal["高内聚实现 (internal/)<br/>封装 1000+ 行复杂逻辑、缓存与异常处理"]
-        TestHarness["行为契约测试 (Vitest)<br/>锁定公开接缝行为，作为 AI 修改自愈防线"] -.-> Facade
+    subgraph S2 ["现代深模块灰盒架构 - AI 极度友好"]
+        Facade["公开极简接缝 Facade index.ts<br/>暴露少于50行纯类型契约"]
+        Internal["高内聚实现 internal 目录<br/>封装 1000+ 行复杂逻辑"]
+        TestHarness["行为契约测试 Vitest<br/>锁定公开接缝行为"]
+        Facade --> Internal
+        TestHarness -.-> Facade
         style Facade fill:#22c55e,stroke:#166534,color:#ffffff
         style Internal fill:#3b82f6,stroke:#1d4ed8,color:#ffffff
         style TestHarness fill:#f59e0b,stroke:#b45309,color:#ffffff

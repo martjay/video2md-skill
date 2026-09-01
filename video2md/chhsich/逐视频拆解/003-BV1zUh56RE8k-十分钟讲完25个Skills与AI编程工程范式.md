@@ -26,29 +26,33 @@
 ### 1. 从单一会话到多窗口工单流演进图
 
 ```mermaid
-graph TD
-    subgraph 阶段一: 需求对齐与设计概念定义 (Shaping)
-        A["grill-with-docs / grill-me<br/>(高强度盘问 + ADR 架构决策对齐)"]
+flowchart TD
+    subgraph S1 ["阶段一: 需求对齐与设计概念定义 Shaping"]
+        A["grill-with-docs / grill-me<br/>高强度盘问 + ADR 架构决策对齐"]
         A --> B{"任务规模评估"}
     end
 
-    subgraph 阶段二: 150K Token 聪明区任务切片 (Slicing)
-        B -- "< 150K Token (单窗口闭环)" --> C["implement<br/>(TDD 红绿重构)"]
-        B -- "> 150K Token (超大工程)" --> D["to-spec (沉淀确定性规格书)"]
-        D --> E["to-tickets (拆解独立子工单)"]
+    subgraph S2 ["阶段二: 150K Token 聪明区任务切片 Slicing"]
+        B -- "小任务: 单窗口闭环" --> C["implement<br/>TDD 红绿重构"]
+        B -- "大任务: 超大工程" --> D["to-spec 沉淀确定性规格书"]
+        D --> E["to-tickets 拆解独立子工单"]
         E --> F1["Agent 窗口 1: implement"]
         E --> F2["Agent 窗口 2: implement"]
         E --> F3["Agent 窗口 3: implement"]
     end
 
-    subgraph 阶段三: 质量闸门 (Quality Gate)
-        C & F1 & F2 & F3 --> G["code-review (双轴审查: 规范轴 + 设计轴)"]
+    subgraph S3 ["阶段三: 质量闸门 Quality Gate"]
+        C --> G["code-review 双轴审查: 规范轴 + 设计轴"]
+        F1 --> G
+        F2 --> G
+        F3 --> G
     end
 
-    subgraph 顶层宏观决策编排 (Wayfinder Layer)
-        WF["wayfinder (生成决策工单地图)"] -.-> PROT["prototype (技术可行性探针)"]
-        WF -.-> RES["research (外部文档/竞品调研)"]
-        PROT & RES -.-> D
+    subgraph S4 ["顶层宏观决策编排 Wayfinder Layer"]
+        WF["wayfinder 生成决策工单地图"] -.-> PROT["prototype 技术可行性探针"]
+        WF -.-> RES["research 外部文档/竞品调研"]
+        PROT -.-> D
+        RES -.-> D
     end
 ```
 

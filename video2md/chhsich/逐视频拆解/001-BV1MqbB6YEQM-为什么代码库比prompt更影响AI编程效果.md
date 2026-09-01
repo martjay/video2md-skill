@@ -31,8 +31,8 @@
 ### 2. 深模块架构心智模型对比图
 
 ```mermaid
-graph TD
-    subgraph 传统浅模块代码库 (Shallow Modules - AI 极易迷失)
+flowchart TD
+    subgraph S1 ["传统浅模块代码库 - AI 极易迷失"]
         direction TB
         A1["业务入口 A"] --> B1["小工具 a1.ts"]
         A1 --> B2["小工具 a2.ts"]
@@ -42,14 +42,15 @@ graph TD
         A2 --> C1
         style A1 fill:#ef4444,stroke:#991b1b,color:#ffffff
         style A2 fill:#ef4444,stroke:#991b1b,color:#ffffff
-        note1["缺点: 接口复杂度 ≈ 实现复杂度<br/>AI 必须加载 10+ 文件才能理解"]
     end
 
-    subgraph 现代深模块架构 (Deep Modules - AI 极度友好)
+    subgraph S2 ["现代深模块架构 - AI 极度友好"]
         direction TB
-        Facade["公开极简接缝 (Facade / index.ts)<br/>仅暴露 1~2 个纯类型与高阶函数"]
-        Facade --> DeepCore["高内聚内部实现 (internal/)<br/>封装 1000+ 行复杂逻辑、缓存、重试、错误处理"]
-        TestHarness["行为契约测试 (Vitest / Jest)<br/>锁定公开接缝行为，作为 AI 修改的自愈防线"] -.-> Facade
+        Facade["公开极简接缝 Facade index.ts<br/>仅暴露 1~2 个纯类型与高阶函数"]
+        DeepCore["高内聚内部实现 internal 目录<br/>封装 1000+ 行复杂逻辑与错误处理"]
+        TestHarness["行为契约测试 Vitest<br/>锁定公开接缝行为"]
+        Facade --> DeepCore
+        TestHarness -.-> Facade
         style Facade fill:#22c55e,stroke:#166534,color:#ffffff
         style DeepCore fill:#3b82f6,stroke:#1d4ed8,color:#ffffff
         style TestHarness fill:#f59e0b,stroke:#b45309,color:#ffffff

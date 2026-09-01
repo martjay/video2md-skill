@@ -31,13 +31,13 @@
 ### 2. 五大破局工程法宝全景图
 
 ```mermaid
-graph TD
-    subgraph 五大破局法宝 (Matt Pocock 欧洲演讲工程体系)
-        F1["1. Grill Me 盘问模式<br/>(主动遍历设计树，消除隐式假设)"] --> S["构建共享设计概念<br/>(Shared Design Concept)"]
-        F2["2. GLOSSARY.md 统一语言<br/>(DDD 领域实体锚定，消除幻觉)"] --> S
-        F3["3. 三重确定性反馈回路<br/>(类型系统 + TDD 单测 + E2E 验证)"] --> E["对抗软件熵增<br/>(Entropy Control)"]
-        F4["4. 深模块与灰盒接缝法<br/>(人类把控接口与测试，AI 托管实现)"] --> L["释放人类脑力<br/>(Cognitive Leverage)"]
-        F5["5. 战略-战术二元分工<br/>(人类主导架构品味，AI 专注具体编码)"] --> L
+flowchart TD
+    subgraph S1 ["五大破局法宝 - 软件工程体系"]
+        F1["1. Grill Me 盘问模式<br/>主动遍历设计树消除隐式假设"] --> S["构建共享设计概念<br/>Shared Design Concept"]
+        F2["2. GLOSSARY.md 统一语言<br/>DDD 领域实体锚定消除幻觉"] --> S
+        F3["3. 三重确定性反馈回路<br/>类型系统 + TDD 单测 + 验证"] --> E["对抗软件熵增<br/>Entropy Control"]
+        F4["4. 深模块与灰盒接缝法<br/>人类把控接口，AI 托管实现"] --> L["释放人类脑力<br/>Cognitive Leverage"]
+        F5["5. 战略-战术二元分工<br/>人类主导品味，AI 专注编码"] --> L
     end
 ```
 

@@ -469,22 +469,18 @@ def download_subs(
     library: Path | None = None,
 ) -> list[str]:
     dest_dir.mkdir(parents=True, exist_ok=True)
-    langs = "all,-live_chat"
+    langs = "ai-zh,zh-Hans,zh-Hant,zh,en,all,-danmaku,-live_chat"
     args = [
         "--skip-download",
         "--write-auto-sub",
         "--write-sub",
         "--sub-langs",
         langs,
-        "--convert-subs",
-        "vtt",
         *cookie_args(ns, library),
         "-o",
         str(dest_dir / "%(id)s.%(ext)s"),
         video_url,
     ]
-    if platform == "bilibili":
-        args[1:1] = ["--write-comments"]
 
     try:
         run_ytdlp(args)
@@ -757,7 +753,7 @@ def pick_caption(paths: list[Path]) -> Path:
         n = p.name.lower()
         if "danmaku" in n or n.endswith(".xml"):
             return (4, n)
-        if any(x in n for x in (".zh-cn", ".zh-hans", ".zh.", "zh-hans")):
+        if any(x in n for x in (".zh-cn", ".zh-hans", ".zh.", "zh-hans", "ai-zh", ".ai-zh")):
             return (0, n)
         if ".en" in n:
             return (1, n)

@@ -33,22 +33,21 @@ venv.bak/
 *.log
 *.sqlite3
 
-# Credentials & Sensitive files
+# Personal Knowledge Base & Video Assets (DO NOT TRACK)
+video2md/
 cookies.txt
-video2md/cookies.txt
-_cookies.txt
-video2md/_cookies.txt
 *.cookie
 *.cookies
 
-# Media & Audio Caches (Large binaries)
+# Media & Subtitle Caches
 *.m4a
 *.mp3
 *.mp4
 *.wav
 *.flac
 *.webm
-video2md/*/audio/
+*.vtt
+*.srt
 *.part
 
 # IDE & Editor artifacts
